@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+body {
+  /* Set the background image */
+  background-image: url('/assets/images/bg.webp');
+
+  /* Ensure the image covers the entire background */
+  background-size: cover;
+
+  /* Center the background image */
+  background-position: center;
+
+  /* Prevent the background image from repeating */
+  background-repeat: no-repeat;
+
+  /* (Optional) Fix the background image so it doesn't scroll with the content */
+  background-attachment: fixed;
+
+  /* Fallback color in case the image doesn't load or for a brief moment before it loads */
+  background-color: #030000;
+}
+
+@font-face {
+  font-family: 'MetroPhotograph - Demo Version Regular';
+  src: url('./assets/fonts/MetroPhotograph-DemoVersion-Regular.otf') format('opentype'); /* Use 'opentype' for .otf */
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Improves performance by showing fallback text first */
+}
+@font-face {
+  font-family: "Bebas Neue";
+  src: url('./assets/fonts/BebasNeue-Regular.ttf') format('opentype'); /* Use 'opentype' for .otf */
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap; /* Improves performance by showing fallback text first */
+}

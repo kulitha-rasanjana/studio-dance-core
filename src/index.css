@@ -1,0 +1,11 @@
+/* Add this to a global CSS file, e.g., src/index.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Optional: A more comprehensive reset */
+*, *::before, *::after {
+    box-sizing: inherit;
+}
