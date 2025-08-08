@@ -6,6 +6,8 @@ import HomePage from './pages/HomePage';
 import AboutUsPage from './pages/AboutUsPage';
 import Manoloka from './pages/Manoloka';
 import NewsPage from './pages/NewsPage';
+import ProductionsPage from './pages/Productions';
+import Classes from './pages/Classes';
 import ScrollToTop from './components/ScrollToTop';
 // Import the admin components
 import { AdminLayout } from './admin/Adminlayout';
@@ -30,6 +32,8 @@ const App = () => {
           <Route path="/manoloka" element={<Manoloka />} />
           <Route path="/news" element={<NewsPage />} />
           <Route path="/artists" element={<ArtistsPage />} />
+          <Route path="/productions" element={<ProductionsPage />} />
+          <Route path="/classes" element={<Classes />} />
           
           <Route path="/admin" element={<LoginPage />} /> 
           <Route path="/admin/dashboard" element={<AdminLayout><AdminDashboardPage /></AdminLayout>} />
