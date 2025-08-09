@@ -43,7 +43,7 @@ const ClassVideos = forwardRef((props, ref) => {
     };
 
     return (
-        <section ref={ref} id="class-videos-section" className="p-8 w-full bg-[#272727] text-[#EFD09E] flex flex-col items-center">
+        <section ref={ref} id="class-videos-section" className="p-8 w-full text-[#EFD09E] flex flex-col items-center">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 sm:mb-6 uppercase" style={{ fontFamily: "'MetroPhotograph - Demo Version Regular'", letterSpacing: '0.1em' }}>
                 Classes Videos
             </h2>
