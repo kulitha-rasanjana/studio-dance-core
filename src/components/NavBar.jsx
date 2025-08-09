@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { UsersRound, UserRound, Newspaper, Menu, X, School, Shirt, Video} from 'lucide-react';
+import { UsersRound, UserRound, Newspaper, Menu, X, School, Shirt, Video } from 'lucide-react';
 import logo from '../assets/images/logo.webp';
 
 const NavBar = ({ setActivePage }) => {
@@ -38,7 +38,7 @@ const NavBar = ({ setActivePage }) => {
           className="flex items-center text-white hover:text-[#EFD09E] transition-colors duration-200 text-base lg:text-lg font-medium group"
           aria-label="Go to Classes Page"
           style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
-          onClick={() => { setActivePage('/about-us'); }}
+          onClick={() => { setActivePage('/classes'); }}
         >
           <School className="h-5 w-5 mr-1 group-hover:scale-110 transition-transform" />
           Classes
@@ -48,21 +48,21 @@ const NavBar = ({ setActivePage }) => {
           className="flex items-center text-white hover:text-[#EFD09E] transition-colors duration-200 text-base lg:text-lg font-medium group"
           aria-label="Go to Productions Page"
           style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
-          onClick={() => { setActivePage('/about-us'); }}
+          onClick={() => { setActivePage('/productions'); }}
         >
           <Video className="h-5 w-5 mr-1 group-hover:scale-110 transition-transform" />
           Productions
         </Link>
         <Link
-          to="/store"
+          to="/merchs"
           className="flex items-center text-white hover:text-[#EFD09E] transition-colors duration-200 text-base lg:text-lg font-medium group"
           aria-label="Go to Store Page"
           style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
-          onClick={() => { setActivePage('/about-us'); }}
+          onClick={() => { setActivePage('/merchs'); }}
         >
           <Shirt className="h-5 w-5 mr-1 group-hover:scale-110 transition-transform" />
           Merchs
-        </Link>        
+        </Link>
         <Link
           to="/news"
           className="flex items-center text-white hover:text-[#EFD09E] transition-colors duration-200 text-base lg:text-lg font-medium group"
@@ -97,17 +97,43 @@ const NavBar = ({ setActivePage }) => {
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-black bg-opacity-95 flex flex-col items-center py-6 space-y-6 animate-fade-in-down">
           <Link
-            to="/about-us"
+            to="/classes"
             className="flex items-center text-white hover:text-[#FFDBBB] transition-colors duration-200 text-xl font-medium"
-            aria-label="Go to About Us Page"
+            aria-label="Go to Classes Page"
             style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
             onClick={() => {
-              setActivePage('/about-us');
+              setActivePage('/classes');
               setIsMobileMenuOpen(false);
             }}
           >
-            <UsersRound className="h-7 w-7 mr-2" />
-            Who We Are?
+            <School className="h-7 w-7 mr-2" />
+            Classes
+          </Link>
+          <Link
+            to="/productions"
+            className="flex items-center text-white hover:text-[#FFDBBB] transition-colors duration-200 text-xl font-medium"
+            aria-label="Go to Productions Page"
+            style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
+            onClick={() => {
+              setActivePage('/productions');
+              setIsMobileMenuOpen(false);
+            }}
+          >
+            <Video className="h-7 w-7 mr-2" />
+            Productions
+          </Link>
+          <Link
+            to="/merchs"
+            className="flex items-center text-white hover:text-[#FFDBBB] transition-colors duration-200 text-xl font-medium"
+            aria-label="Go to Merch Page"
+            style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
+            onClick={() => {
+              setActivePage('/merchs');
+              setIsMobileMenuOpen(false);
+            }}
+          >
+            <Shirt className="h-7 w-7 mr-2" />
+            Merchs
           </Link>
           <Link
             to="/news"
@@ -123,8 +149,21 @@ const NavBar = ({ setActivePage }) => {
             News
           </Link>
           <Link
-            to="/login"
+            to="/about-us"
             className="flex items-center text-white hover:text-[#FFDBBB] transition-colors duration-200 text-xl font-medium"
+            aria-label="Go to About Us Page"
+            style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
+            onClick={() => {
+              setActivePage('/about-us');
+              setIsMobileMenuOpen(false);
+            }}
+          >
+            <UsersRound className="h-7 w-7 mr-2" />
+            Who We Are?
+          </Link>
+          <Link
+            to="/login"
+            className="flex items-center px-4 py-2 rounded-full bg-white text-black hover:bg-black hover:text-white transition-colors duration-200 text-base lg:text-lg font-medium group"
             aria-label="Go to Login Page"
             style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
             onClick={() => {

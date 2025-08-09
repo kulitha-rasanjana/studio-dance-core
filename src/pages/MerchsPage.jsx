@@ -1,0 +1,95 @@
+// src/components/MerchsPage.jsx
+import React, { useRef, useEffect, forwardRef } from 'react';
+import { bg } from '../utils/config';
+import NavBar from '../components/NavBar';
+// Placeholder images - In a real application, you would use actual image paths
+import merchTshirt from "../assets/images/tshirt.webp";
+import merchScarf from "../assets/images/scarf_soon.webp";
+
+// Reusable component for a Merch Card
+const MerchCard = ({ item, url }) => (
+  <div className="flex-shrink-0 w-48 h-56 sm:w-56 sm:h-64 md:w-64 md:h-75 bg-white rounded-xl shadow-lg p-3 sm:p-4 flex flex-col justify-between items-center text-center mx-2 sm:mx-3 md:mx-4 transition-transform duration-300 ease-in-out hover:scale-105 transform-gpu">
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`View ${item.name}`}
+      className="block w-full h-full flex flex-col justify-between items-center text-center"
+    >
+      <img
+        src={item.image}
+        alt={item.name}
+        className="max-h-[70%] sm:max-h-[80%] w-auto object-contain mb-2 rounded"
+        onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/200x200/F0F0F0/333333?text=Image+Error"; }}
+      />
+      <p className="text-black text-base sm:text-lg font-semibold">{item.name}</p>
+      <p className="text-gray-600 text-xs sm:text-sm">Rs.{item.price}</p>
+    </a>
+  </div>
+);
+
+// Use forwardRef to allow HomePage to pass a ref to this component
+const MerchsPage = forwardRef((props, ref) => {
+  const merchContainerRef = useRef(null);
+
+  const merchItems = [
+    { id: 'tshirt', name: 'Studio T-Shirt', price: '2699.00', image: merchTshirt, url: 'https://docs.google.com/forms/d/e/1FAIpQLSf_KSj1Mwu-8qHwq0vvSz-HC5wDiNJcqh-nUGEea-FqHwZbBQ/viewform?usp=dialog' },
+    { id: 'scarf', name: 'Signature Scarf', price: 'COMING SOON', image: merchScarf, url: '#' },
+  ];
+
+  useEffect(() => {
+    const merchContainer = merchContainerRef.current;
+
+    if (merchContainer) {
+      const handleWheelScroll = (event) => {
+        event.preventDefault();
+        merchContainer.scrollLeft += event.deltaY * 2.0;
+      };
+
+      merchContainer.addEventListener('wheel', handleWheelScroll);
+
+      return () => {
+        merchContainer.removeEventListener('wheel', handleWheelScroll);
+      };
+    }
+  }, []);
+
+  return (
+    <div className="flex flex-col items-center justify-center bg-black w-full">
+      <div className="sticky top-0 z-50 w-full">
+        <NavBar setActivePage='classes' />
+      </div>
+      <main
+        className="min-h-screen w-full text-gray-400 p-4 sm:p-6 md:p-8 flex flex-col items-center relative" // Added relative for pseudo-element (if using) or if needed for child positioning
+        style={{
+          backgroundImage: `url(${bg})`, // Corrected syntax here
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed', // Keeps background fixed while content scrolls
+          backgroundColor: 'rgba(0, 0, 0, 0.7)', // This creates the direct overlay on the main background
+          backgroundBlendMode: 'multiply' // Optional: blends the background image with the color
+        }}
+      >
+        <section className="w-full p-4 sm:p-6 md:p-8 bg-transparent text-white min-h-[500px] md:min-h-[600px] flex flex-col justify-center">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 sm:mb-8 uppercase text-center" style={{ fontFamily: "'MetroPhotograph - Demo Version Regular'", letterSpacing: '0.1em', color: '#ffffffff' }}>
+            Merchs
+          </h2>
+          <div
+            ref={merchContainerRef}
+            className="flex overflow-x-auto py-12 merch-scroll-container flex-grow items-center justify-start sm:justify-center"
+          >
+            {merchItems.length > 0 ? (
+              merchItems.map((item) => (
+                <MerchCard key={item.id} item={item} url={item.url || '#'} />
+              ))
+            ) : (
+              <p className="text-lg text-gray-300 text-center w-full">More awesome merch coming soon!</p>
+            )}
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+});
+
+export default MerchsPage;

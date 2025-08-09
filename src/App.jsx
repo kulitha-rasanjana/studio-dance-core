@@ -7,17 +7,20 @@ import AboutUsPage from './pages/AboutUsPage';
 import Manoloka from './pages/Manoloka';
 import NewsPage from './pages/NewsPage';
 import ProductionsPage from './pages/Productions';
-import Classes from './pages/Classes';
+import ClassesPage from './pages/ClassesPage';
+import MerchsPage from './pages/MerchsPage';
 import ScrollToTop from './components/ScrollToTop';
 // Import the admin components
 import { AdminLayout } from './admin/Adminlayout';
-import { LoginPage } from './admin/LoginPage';
+import { AdminLoginPage } from './admin/AdminLoginPage';
 import { AdminDashboardPage } from './admin/AdminDashboardPage';
 import { AddClassesPage } from './admin/AddClassesPage';
 import { AddNewspage } from './admin/AddNewspage';
 import { AddProductPages } from './admin/AddProductPages';
 import { AddMerchpage } from './admin/AddMerch';
 import ArtistsPage from './pages/Artists';
+import LoginPage from './pages/LoginPage';
+import LessonsPage from './pages/LessonsPage';
 
 const App = () => {
   const [activePage, setActivePage] = useState('home');
@@ -33,9 +36,12 @@ const App = () => {
           <Route path="/news" element={<NewsPage />} />
           <Route path="/artists" element={<ArtistsPage />} />
           <Route path="/productions" element={<ProductionsPage />} />
-          <Route path="/classes" element={<Classes />} />
+          <Route path="/classes" element={<ClassesPage />} />
+           <Route path="/merchs" element={<MerchsPage />} />
+           <Route path="/login" element={<LoginPage />} />
+          <Route path="/lessons" element={<LessonsPage />} />
           
-          <Route path="/admin" element={<LoginPage />} /> 
+          <Route path="/admin" element={<AdminLoginPage />} /> 
           <Route path="/admin/dashboard" element={<AdminLayout><AdminDashboardPage /></AdminLayout>} />
           <Route path="/admin/add-classes" element={<AdminLayout><AddClassesPage /></AdminLayout>} />
           <Route path="/admin/add-news" element={<AdminLayout><AddNewspage /></AdminLayout>} />

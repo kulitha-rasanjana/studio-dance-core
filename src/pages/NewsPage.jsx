@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
 import NewsCard from '../components/NewsCard.jsx';
-
+import { bg } from '../utils/config';
 // Import your news item images
 import freeDanceWorkshopImage from '../assets/images/events/event-1.webp';
 import freeDanceWorkshopImage2 from '../assets/images/events/event-2.jpeg';
@@ -9,8 +9,6 @@ import julyIntake from '../assets/images/events/julyIntake.webp';
 import augestIntake from '../assets/images/events/audust-new-intake.webp';
 
 // Import your background image
-import backgroundImage from '../assets/images/bg.webp'; // Make sure this path is correct
-
 const NewsPage = () => {
   const newsItems = [
     {
@@ -59,12 +57,12 @@ const NewsPage = () => {
   return (
     <>
       <div className="sticky top-0 z-50 w-full">
-        <NavBar setActivePage='about-us' />
+        <NavBar setActivePage='news' />
       </div>
       <main
         className="min-h-screen text-gray-400 p-4 sm:p-6 md:p-8 flex flex-col items-center relative" // Added relative for pseudo-element (if using) or if needed for child positioning
         style={{
-          backgroundImage: `url(${backgroundImage})`,
+          backgroundImage: `url(${bg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed', // Keeps background fixed while content scrolls

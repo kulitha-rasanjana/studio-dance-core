@@ -33,13 +33,13 @@ const PersonProfileCard = ({ name, roles, imageUrl, instagramUrl }) => {
         </div>
 
         {/* Details Card */}
-        <div className="bg-[#EFD09E] p-6 sm:p-8 rounded-xl shadow-xl text-[#272727] w-full max-w-sm sm:max-w-md md:max-w-lg"> {/* Adjusted padding and max-width */}
-          <h2 className="font-sans text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 leading-tight text-[#272727]"> {/* Responsive font sizes and margin */}
+        <div className="bg- p-6 sm:p-8 rounded-xl shadow-xl text-gray 100 w-full max-w-sm sm:max-w-md md:max-w-lg"> {/* Adjusted padding and max-width */}
+          <h2 className="font-sans text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 leading-tight text-gray 100"> {/* Responsive font sizes and margin */}
             {name}
           </h2>
           <div className="space-y-2 sm:space-y-3"> {/* Adjusted space-y */}
             {roles.map((role, index) => (
-              <p key={index} className="text-xl sm:text-2xl tracking-widest uppercase" style={{fontFamily:'Bebas Neue', color:'#272727'}}> {/* Responsive font size */}
+              <p key={index} className="text-xl sm:text-2xl tracking-widest uppercase" style={{fontFamily:'Bebas Neue', color:'#c7c7c7ff'}}> {/* Responsive font size */}
                 {role}
               </p>
             ))}

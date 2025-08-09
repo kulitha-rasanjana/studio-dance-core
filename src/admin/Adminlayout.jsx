@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import logo from '../assets/images/logo.webp';
 
 export const AdminLayout = ({ children }) => {
   const navigate = useNavigate();
@@ -18,6 +19,11 @@ export const AdminLayout = ({ children }) => {
       {/* Side Panel */}
       <div className="w-64 bg-gray-300 text-gray-600 flex flex-col justify-between p-6 shadow-lg rounded-r-lg border-2 border-gray-200">
         <div>
+          <div className="mb-6 flex justify-center">
+            <Link to="/" aria-label="Go to Home Page" className="block w-[80px] md:w-[100px] h-auto">
+              <img src={logo} alt="Studio Dance Core Logo" className="max-w-full h-auto" />
+            </Link>
+          </div>
           <h2 className="text-2xl font-bold mb-8 text-center text-indigo-500">SDC Admin Panel</h2>
           <nav>
             <ul>
