@@ -1,15 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import heroVideoMp4 from '../assets/videos/home.mp4';
 import heroVideoWebm from '../assets/videos/Home.webm';
-import { logo, classesandevents, merch, //productionsWebm,
- productionsMp4, headlogo, bg, lession, productions } from '../utils/config';
-
-// Import NavBar component
+import { logo, classesandevents, merch, headlogo, bg, lession, productions } from '../utils/config';
 import NavBar from '../components/NavBar';
 
-// React Router hooks
 import { useNavigate, useLocation } from 'react-router-dom';
-
 // Font Awesome icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
@@ -69,7 +64,7 @@ const HomePage = ({ setActivePage }) => {
           backgroundImage: `url(${bg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundAttachment: 'fixed', // Keeps background fixed while content scrolls
+          backgroundAttachment: 'fixed',
           backgroundColor: 'rgba(0, 0, 0, 0.7)',
           backgroundBlendMode: 'multiply'
         }}
@@ -106,18 +101,11 @@ const HomePage = ({ setActivePage }) => {
               onClick={navigateToProductionsPage}
               className="relative w-full cursor-pointer overflow-hidden rounded-lg shadow-xl hover:scale-105 transition-transform duration-300"
             >
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                title="Productions"
-                poster={productions}
-              >
-                {/* MP4 as a fallback for broader compatibility */}
-                <source src={productionsMp4} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              <img
+                src={productions}
+                alt="An image representing dance classes"
+                className="w-full h-auto"
+              />
               <div className="absolute inset-0 hover:bg-opacity-0 transition-opacity duration-300"></div>
             </div>
           </section>
@@ -141,10 +129,20 @@ const HomePage = ({ setActivePage }) => {
           </section>
         </div>
 
+        {/* Spacer for theme */}
+        < section ref={aboutUsRef} className="p-8 w-full bg-black flex flex-col items-center" >
+          <h2 className="text-4xl md:text-4xl font-bold text-white" style={{ fontFamily: "'Bebas Neue'", letterSpacing: '0.1em', color: '#EFD09E' }}>
+            We Bring ART to
+          </h2>
+          <h1 className="text-4xl md:text-6xl font-bold text-white" style={{ fontFamily: "'Bebas Kai'", letterSpacing: '0.1em', color: '#EFD09E' }}>
+            NEXT LEVEL
+          </h1>
+        </section >
+
         {/* Merch & Lessons Section - Flex container for side-by-side layout */}
-        <div className="flex flex-col md:flex-row gap-4 w-screen mx-auto py-1">
+        < div className="flex flex-col md:flex-row gap-4 w-screen mx-auto py-1" >
           {/* Merch Section */}
-          <section
+          < section
             id="merch-section"
             className="w-full md:w-1/2 bg-transparent flex flex-col items-center"
           >
@@ -159,10 +157,10 @@ const HomePage = ({ setActivePage }) => {
               />
               <div className="absolute inset-0 hover:bg-opacity-0 transition-opacity duration-300"></div>
             </div>
-          </section>
+          </section >
 
           {/* Lessons Section */}
-          <section
+          < section
             id="lession-section"
             className="w-full md:w-1/2 bg-transparent flex flex-col items-center"
           >
@@ -177,11 +175,11 @@ const HomePage = ({ setActivePage }) => {
               />
               <div className="absolute inset-0 hover:bg-opacity-0 transition-opacity duration-300"></div>
             </div>
-          </section>
-        </div>
+          </section >
+        </div >
 
         {/* About Us Section */}
-        <section ref={aboutUsRef} className="p-8 w-full bg-gray-100 flex flex-col items-center">
+        < section ref={aboutUsRef} className="p-8 w-full bg-gray-100 flex flex-col items-center" >
           <div className="flex flex-col md:flex-row items-center">
             {/* Placeholder for the image */}
             <div className="w-full md:w-1/4 p-4">
@@ -193,11 +191,11 @@ const HomePage = ({ setActivePage }) => {
             </div>
             {/* The paragraph on the right side */}
             <div className="w-full md:w-3/4">
-              <h2 className="p-4 text-4xl md:text-4xl font-bold text-gray-800 text-center" style={{ fontFamily: "'MetroPhotograph - Demo Version Regular'", letterSpacing: '0.1em', color: '#272727' }}>
+              <h2 className="p-4 text-4xl md:text-4xl font-bold text-gray-800" style={{ fontFamily: "'MetroPhotograph - Demo Version Regular'", letterSpacing: '0.1em', color: '#272727' }}>
                 About Us
               </h2>
               <p
-                className="font-sans text-base md:text-lg text-gray-600 text-justify"
+                className="font-sans text-base md:text-lg text-gray-600 text-justify p-6"
               >
                 Studio Dance Core is a vibrant hub for artistic expression located in the heart of Sri Lanka. We are passionate about creating unique, high-quality video content that showcases our innovative ideas and talent. Our professional dance classes are specifically tailored for young Sri Lankan students and teenagers, providing a nurturing environment where they can develop their skills and creativity. Beyond the studio, we are dedicated to producing meaningful and enjoyable projects for our audience.
               </p>
@@ -241,9 +239,9 @@ const HomePage = ({ setActivePage }) => {
               </div>
             </div>
           </div>
-        </section>
-      </main>
-    </div>
+        </section >
+      </main >
+    </div >
   );
 };
 
