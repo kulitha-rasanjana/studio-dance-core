@@ -18,7 +18,7 @@ const LoginPage = ({ onClose }) => {
     // Add your login/signup logic here
 
     // Redirect to the /lessons page after a successful login
-    window.location.href = '/lessons';
+    window.location.href = '/coming-soon';
   };
 
   const formTitle = isLogin ? 'Login' : 'Sign Up';

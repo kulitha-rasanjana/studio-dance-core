@@ -21,6 +21,7 @@ import { AddMerchpage } from './admin/AddMerch';
 import ArtistsPage from './pages/Artists';
 import LoginPage from './pages/LoginPage';
 import LessonsPage from './pages/LessonsPage';
+import ComingSoonPage from './pages/CommingSoonPage';
 
 const App = () => {
   const [activePage, setActivePage] = useState('home');
@@ -40,6 +41,7 @@ const App = () => {
            <Route path="/merchs" element={<MerchsPage />} />
            <Route path="/login" element={<LoginPage />} />
           <Route path="/lessons" element={<LessonsPage />} />
+          <Route path="/coming-soon" element={<ComingSoonPage />} />
           
           <Route path="/admin" element={<AdminLoginPage />} /> 
           <Route path="/admin/dashboard" element={<AdminLayout><AdminDashboardPage /></AdminLayout>} />
