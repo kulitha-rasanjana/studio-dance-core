@@ -7,9 +7,7 @@ import NavBar from '../components/NavBar';
 // Import the LoginPage component from its new file
 import LoginPage from './LoginPage';
 
-// Import the event images
-import freeDanceWorkshopImage from '../assets/images/events/event-1.webp';
-import freeDanceWorkshopImage2 from '../assets/images/events/event-2.jpeg';
+import lessonsData from '../utils/lessons'; // Import lessons data
 
 // Use forwardRef to allow HomePage to pass a ref to this component
 const LessonsPage = forwardRef((props, ref) => { // 'ref' is the second argument from forwardRef
@@ -22,13 +20,6 @@ const LessonsPage = forwardRef((props, ref) => { // 'ref' is the second argument
   const [selectedDay, setSelectedDay] = useState('');
   const [filteredClasses, setFilteredClasses] = useState([]);
   const [showLogin, setShowLogin] = useState(false); // State to control the login form visibility
-
-  // Define your lesson PDFs here
-  const lessonsData = useMemo(() => [
-    { title: 'එලිපිට නටන ආකාරය', file: '/src/assets/lessons/එලිපිට නටන ආකාරය.pdf' },
-    { title: 'තාලෙට පාද තබන ආකාරය', file: '/src/assets/lessons/තාලෙට පාද තබන ආකාරය.pdf' },
-    { title: 'ඇද පොලවක නටන ආකාරය', file: '/src/assets/lessons/ඇද පොලවක නටන ආකාරය.pdf' },
-  ], []);
 
   // Effect to update filtered classes whenever selections change
   useEffect(() => {

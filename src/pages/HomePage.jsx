@@ -3,10 +3,6 @@ import heroVideoMp4 from '../assets/videos/home.mp4';
 import heroVideoWebm from '../assets/videos/Home.webm';
 import { logo, classesandevents, merch, productions, headlogo, bg } from '../utils/config';
 
-// Import your section components
-// The Productions component is now its own page, so we don't import it here.
-import ClassVideos from './ClassVideos';
-
 // Import NavBar component
 import NavBar from '../components/NavBar';
 
@@ -23,7 +19,6 @@ const HomePage = ({ setActivePage }) => {
   const productionsRef = useRef(null);
   const merchRef = useRef(null);
   // The ref for the Classes section has been removed
-  const classVideosRef = useRef(null);
   const aboutUsRef = useRef(null);
 
   const navigate = useNavigate();
@@ -186,9 +181,6 @@ const HomePage = ({ setActivePage }) => {
             <div className="absolute inset-0 hover:bg-opacity-0 transition-opacity duration-300"></div>
           </div>
         </section>
-
-        {/* Our Classes Videos Section */}
-        <ClassVideos ref={classVideosRef} />
 
         {/* About Us Section */}
         <section ref={aboutUsRef} className="p-8 w-full bg-gray-100 flex flex-col items-center">

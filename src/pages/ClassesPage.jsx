@@ -1,18 +1,22 @@
 // src/components/Classes.jsx
-import React, { useState, useEffect, useMemo, forwardRef } from 'react'; // Import forwardRef
+import React, { useState, useEffect, useMemo, forwardRef, useRef } from 'react'; // Import forwardRef
 import classSchedules from '../utils/classSchedules'; // Ensure this path is correct
 import { bg } from '../utils/config';
+// Import your section components
+// The Productions component is now its own page, so we don't import it here.
+import ClassVideos from './ClassVideos';
 // Import NavBar component
 import NavBar from '../components/NavBar';
 // Import the LoginPage component from its new file
 import LoginPage from './LoginPage';
-
+import lessonsData from '../utils/lessons'; // Import lessons data
 // Import the event images
 import freeDanceWorkshopImage from '../assets/images/events/event-1.webp';
 import freeDanceWorkshopImage2 from '../assets/images/events/event-2.jpeg';
 
 // Use forwardRef to allow HomePage to pass a ref to this component
 const ClassesPage = forwardRef((props, ref) => { // 'ref' is the second argument from forwardRef
+  const classVideosRef = useRef(null);
   // Use useMemo to memoize 'locations' array
   const locations = useMemo(() => Object.keys(classSchedules), []);
 
@@ -37,12 +41,6 @@ const ClassesPage = forwardRef((props, ref) => { // 'ref' is the second argument
     },
   ], []); // Empty dependency array means it's created once
 
-  // Define your lesson PDFs here
-  const lessonsData = useMemo(() => [
-    { title: 'එලිපිට නටන ආකාරය', file: '/src/assets/lessons/එලිපිට නටන ආකාරය.pdf' },
-    { title: 'තාලෙට පාද තබන ආකාරය', file: '/src/assets/lessons/තාලෙට පාද තබන ආකාරය.pdf' },
-    { title: 'ඇද පොලවක නටන ආකාරය', file: '/src/assets/lessons/ඇද පොලවක නටන ආකාරය.pdf' },
-  ], []);
 
   // Effect to update filtered classes whenever selections change
   useEffect(() => {
@@ -125,107 +123,104 @@ const ClassesPage = forwardRef((props, ref) => { // 'ref' is the second argument
       >
         {/* Attach the forwarded ref 'ref' to the outermost section element */}
         <section>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 sm:mb-8 uppercase text-center" style={{ fontFamily: "'MetroPhotograph - Demo Version Regular'", letterSpacing: '0.1em', color: '#ffffffff' }}>
-            Classes / Events
-          </h2>
+          <div className="mt-8 text-center text-[#EFD09E]">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 sm:mb-8 uppercase text-center" style={{ fontFamily: "'MetroPhotograph - Demo Version Regular'", letterSpacing: '0.1em' }}>
+              Classes / Events
+            </h2>
 
-          <div className="flex flex-col md:flex-row gap-6 md:gap-8 w-full max-w-7xl mx-auto">
-            {/* Left Column: Selection Controls + Class Schedule */}
-            <div className="w-full md:w-1/2 flex flex-col space-y-4">
-              {/* Select Place */}
-              <label htmlFor="place-select" className="sr-only">Select Location</label>
-              <select
-                id="place-select"
-                className="p-2 sm:p-3 rounded-md bg-white text-black focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-md text-sm sm:text-base"
-                value={selectedPlace}
-                onChange={(e) => setSelectedPlace(e.target.value)}
-              >
-                <option value="">Select a Place</option>
-                {locations.map((place) => (
-                  <option key={place} value={place}>{place}</option>
-                ))}
-              </select>
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8 w-full max-w-7xl mx-auto">
+              {/* Left Column: Selection Controls + Class Schedule */}
+              <div className="w-full md:w-1/2 flex flex-col space-y-4">
+                {/* Select Place */}
+                <select
+                  id="place-select"
+                  className="p-2 sm:p-3 rounded-md bg-white text-black focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-md text-sm sm:text-base"
+                  value={selectedPlace}
+                  onChange={(e) => setSelectedPlace(e.target.value)}
+                >
+                  <option value="">Select a Place</option>
+                  {locations.map((place) => (
+                    <option key={place} value={place}>{place}</option>
+                  ))}
+                </select>
 
-              {/* Select Day */}
-              <label htmlFor="day-select" className="sr-only">Select Day</label>
-              <select
-                id="day-select"
-                className="p-2 sm:p-3 rounded-md bg-white text-black focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-md text-sm sm:text-base"
-                value={selectedDay}
-                onChange={(e) => setSelectedDay(e.target.value)}
-              >
-                <option value="">Select a Day</option>
-                {daysOfWeek.map((day) => (
-                  <option key={day} value={day}>{day}</option>
-                ))}
-              </select>
+                {/* Select Day */}
+                <select
+                  id="day-select"
+                  className="p-2 sm:p-3 rounded-md bg-white text-black focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-md text-sm sm:text-base"
+                  value={selectedDay}
+                  onChange={(e) => setSelectedDay(e.target.value)}
+                >
+                  <option value="">Select a Day</option>
+                  {daysOfWeek.map((day) => (
+                    <option key={day} value={day}>{day}</option>
+                  ))}
+                </select>
 
-              {/* Class Schedule Display */}
-              <div className="w-full bg-white rounded-xl p-3 sm:p-4 overflow-y-auto shadow-lg mt-4" style={{ maxHeight: '400px' }}>
-                <h3 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 text-black">
-                  {getHeaderText()}
-                </h3>
-                {filteredClasses.length > 0 ? (
-                  <ul className="space-y-3">
-                    {filteredClasses.map((cls, index) => (
-                      <li key={index} className="bg-gray-800 p-3 rounded-md flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-md">
-                        <div>
-                          <p className="text-base sm:text-lg font-medium text-white">{cls.name}</p>
-                          <p className="text-xs sm:text-sm text-gray-300">{cls.time}</p>
-                        </div>
-                        <div className="mt-2 sm:mt-0 text-right">
-                          <p className="text-sm text-gray-400">Instr: {cls.instructor}</p>
-                          {!(selectedPlace && selectedDay) && (
-                            <p className="text-xs text-gray-500 mt-1">{cls.day} at {cls.location}</p>
-                          )}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="text-sm sm:text-base text-gray-400">
-                    {getEmptyMessage()}
-                  </p>
-                )}
+                {/* Class Schedule Display */}
+                <div className="w-full bg-white rounded-xl p-3 sm:p-4 overflow-y-auto shadow-lg mt-4" style={{ maxHeight: '400px' }}>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 text-black">
+                    {getHeaderText()}
+                  </h3>
+                  {filteredClasses.length > 0 ? (
+                    <ul className="space-y-3">
+                      {filteredClasses.map((cls, index) => (
+                        <li key={index} className="bg-gray-800 p-3 rounded-md flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-md">
+                          <div>
+                            <p className="text-base sm:text-lg font-medium text-white">{cls.name}</p>
+                            <p className="text-xs sm:text-sm text-gray-300">{cls.time}</p>
+                          </div>
+                          <div className="mt-2 sm:mt-0 text-right">
+                            <p className="text-sm text-gray-400">Instr: {cls.instructor}</p>
+                            {!(selectedPlace && selectedDay) && (
+                              <p className="text-xs text-gray-500 mt-1">{cls.day} at {cls.location}</p>
+                            )}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-sm sm:text-base text-gray-400">
+                      {getEmptyMessage()}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
 
-            {/* Right Column: Events Card */}
-            <div className="w-full md:w-1/2 bg-white rounded-xl p-3 sm:p-4 shadow-lg flex flex-col space-y-4" style={{ maxHeight: '500px' }}>
-              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 text-black">
-                Events
-              </h3>
-              <div className="overflow-y-auto space-y-4">
-                {events.map(event => (
-                  <div key={event.id} className="relative rounded-md overflow-hidden shadow-sm">
-                    <img
-                      src={event.imageUrl}
-                      alt={event.name || 'Event Image'}
-                      className="w-full h-auto object-cover"
-                    />
-                    {event.status === 'closed' && (
-                      <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
-                        <p className="text-white text-xl sm:text-2xl md:text-3xl font-bold uppercase tracking-wider">CLOSED</p>
-                      </div>
-                    )}
-                  </div>
-                ))}
+              {/* Right Column: Events Card */}
+              <div className="w-full md:w-1/2 bg-white rounded-xl p-3 sm:p-4 shadow-lg flex flex-col space-y-4" style={{ maxHeight: '500px' }}>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 text-black">
+                  Events
+                </h3>
+                <div className="overflow-y-auto space-y-4">
+                  {events.map(event => (
+                    <div key={event.id} className="relative rounded-md overflow-hidden shadow-sm">
+                      <img
+                        src={event.imageUrl}
+                        alt={event.name || 'Event Image'}
+                        className="w-full h-auto object-cover"
+                      />
+                      {event.status === 'closed' && (
+                        <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
+                          <p className="text-white text-xl sm:text-2xl md:text-3xl font-bold uppercase tracking-wider">CLOSED</p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
           {/* New Section for Lessons */}
-          <div className="mt-8 text-center">
+          <div className="mt-8 text-center text-[#EFD09E]">
             <div className='border-t border-gray-700 pt-4' />
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold" style={{ fontFamily: "'MetroPhotograph - Demo Version Regular'", letterSpacing: '0.1em', color: '#ffffffff' }}>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 sm:mb-6 uppercase text-[#EFD09E]" style={{ fontFamily: "'MetroPhotograph - Demo Version Regular'", letterSpacing: '0.1em' }}>
               Lessons
             </h2>
             <p className="text-lg sm:text-md text-gray-300 mb-4">
               Explore our wide range of dance lessons designed for all skill levels. Whether you're a beginner or an experienced dancer, we have classes that suit your needs.
             </p>
             <div className="mt-12 w-full max-w-7xl mx-auto">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 mb-6 text-center text-white" style={{ fontFamily: "'MetroPhotograph - Demo Version Regular'", letterSpacing: '0.1em' }}>
-                Downloadable Lessons
-              </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {lessonsData.map((lesson, index) => (
                   <div key={index} className="bg-white rounded-xl p-6 shadow-lg flex flex-col items-center text-black">
@@ -243,9 +238,15 @@ const ClassesPage = forwardRef((props, ref) => { // 'ref' is the second argument
               <button
                 onClick={() => setShowLogin(true)}
                 className='mt-4 px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition duration-200'>
-                Sign Up Here
+                More Lessons
               </button>
             </div>
+          </div>
+          {/* New Section for Classes Videos */}
+          {/* Our Classes Videos Section */}
+          <div className="mt-8 text-center">
+            <div className='border-t border-gray-700 pt-4' />
+            <ClassVideos ref={classVideosRef} />
           </div>
         </section>
       </main>
