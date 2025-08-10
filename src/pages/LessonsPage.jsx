@@ -9,8 +9,59 @@ import LoginPage from './LoginPage';
 
 import lessonsData from '../utils/lessons'; // Import lessons data
 
+// Mock data for paid lessons
+const paidLessonsData = [
+  {
+    title: "Advanced Choreography: Part 1",
+    file: "/assets/pdfs/advanced-lesson-1.pdf"
+  },
+  {
+    title: "Breakdancing Fundamentals",
+    file: "/assets/pdfs/advanced-lesson-2.pdf"
+  },
+  {
+    title: "Contemporary Dance Techniques",
+    file: "/assets/pdfs/advanced-lesson-3.pdf"
+  }
+];
+
 // Use forwardRef to allow HomePage to pass a ref to this component
 const LessonsPage = forwardRef((props, ref) => { // 'ref' is the second argument from forwardRef
+  // State to track if the user is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // State to store user data
+  const [user, setUser] = useState(null);
+  const [showLogin, setShowLogin] = useState(false); // State to control the login form visibility
+
+  // Effect to simulate checking for a logged-in user
+  useEffect(() => {
+    // In a real application, you would check for a user session here,
+    // for example, using Firebase Auth or a token from an API.
+    // We'll use a placeholder for now.
+    const checkLoginStatus = () => {
+      // Placeholder logic: A user is considered logged in if there's a stored user object
+      const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+      if (storedUser) {
+        setIsLoggedIn(true);
+        setUser(storedUser);
+      } else {
+        setIsLoggedIn(false);
+        setUser(null);
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
+
+  // Function to handle successful login
+  const handleLoginSuccess = (loggedInUser) => {
+    // In a real app, you would save user data to localStorage or a global state
+    localStorage.setItem('currentUser', JSON.stringify(loggedInUser));
+    setIsLoggedIn(true);
+    setUser(loggedInUser);
+    setShowLogin(false);
+  };
+  
   // Use useMemo to memoize 'locations' array
   const locations = useMemo(() => Object.keys(classSchedules), []);
 
@@ -19,7 +70,6 @@ const LessonsPage = forwardRef((props, ref) => { // 'ref' is the second argument
   const [selectedPlace, setSelectedPlace] = useState('');
   const [selectedDay, setSelectedDay] = useState('');
   const [filteredClasses, setFilteredClasses] = useState([]);
-  const [showLogin, setShowLogin] = useState(false); // State to control the login form visibility
 
   // Effect to update filtered classes whenever selections change
   useEffect(() => {
@@ -83,6 +133,8 @@ const LessonsPage = forwardRef((props, ref) => { // 'ref' is the second argument
     return 'No classes found based on your selection.';
   };
 
+  const lessonsToDisplay = isLoggedIn ? [...lessonsData, ...paidLessonsData] : lessonsData;
+
   return (
     <div className="flex flex-col items-center justify-center bg-black w-full">
       {/* Sticky NavBar */}
@@ -112,7 +164,7 @@ const LessonsPage = forwardRef((props, ref) => { // 'ref' is the second argument
             </p>
             <div className="mt-12 w-full max-w-7xl mx-auto">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {lessonsData.map((lesson, index) => (
+                {lessonsToDisplay.map((lesson, index) => (
                   <div key={index} className="bg-white rounded-xl p-6 shadow-lg flex flex-col items-center text-black">
                     <h3 className="text-xl font-semibold mb-4 text-center">{lesson.title}</h3>
                     <p className="text-center text-gray-400 mb-6">Downloadable PDF to learn proper dance.</p>
@@ -124,9 +176,19 @@ const LessonsPage = forwardRef((props, ref) => { // 'ref' is the second argument
               </div>
             </div>
           </div>
+          {!isLoggedIn && (
+            <div className="mt-8 text-center">
+              <p className="text-sm sm:text-base text-gray-400">For more lessons, please sign up</p>
+              <button
+                onClick={() => setShowLogin(true)}
+                className='mt-4 px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition duration-200'>
+                Sign Up Here
+              </button>
+            </div>
+          )}
         </section>
       </main>
-      {showLogin && <LoginPage onClose={() => setShowLogin(false)} />}
+      {showLogin && <LoginPage onClose={() => setShowLogin(false)} onSuccess={handleLoginSuccess} />}
     </div>
   );
 });

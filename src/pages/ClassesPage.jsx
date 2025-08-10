@@ -211,38 +211,6 @@ const ClassesPage = forwardRef((props, ref) => { // 'ref' is the second argument
               </div>
             </div>
           </div>
-          {/* New Section for Lessons */}
-          <div className="mt-8 text-center text-[#EFD09E]">
-            <div className='border-t border-gray-700 pt-4' />
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 sm:mb-6 uppercase text-[#EFD09E]" style={{ fontFamily: "'MetroPhotograph - Demo Version Regular'", letterSpacing: '0.1em' }}>
-              Lessons
-            </h2>
-            <p className="text-lg sm:text-md text-gray-300 mb-4">
-              Explore our wide range of dance lessons designed for all skill levels. Whether you're a beginner or an experienced dancer, we have classes that suit your needs.
-            </p>
-            <div className="mt-12 w-full max-w-7xl mx-auto">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {lessonsData.map((lesson, index) => (
-                  <div key={index} className="bg-white rounded-xl p-6 shadow-lg flex flex-col items-center text-black">
-                    <h3 className="text-xl font-semibold mb-4 text-center">{lesson.title}</h3>
-                    <p className="text-center text-gray-400 mb-6">Downloadable PDF to learn proper dance.</p>
-                    <a href={lesson.file} download className="px-6 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition duration-200">
-                      Download
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="mt-8">
-              <p className="text-sm sm:text-base text-gray-400">For more lessons, please sign up</p>
-              <button
-                onClick={() => setShowLogin(true)}
-                className='mt-4 px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition duration-200'>
-                More Lessons
-              </button>
-            </div>
-          </div>
-          {/* New Section for Classes Videos */}
           {/* Our Classes Videos Section */}
           <div className="mt-8 text-center">
             <div className='border-t border-gray-700 pt-4' />

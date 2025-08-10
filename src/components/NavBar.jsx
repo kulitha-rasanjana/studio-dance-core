@@ -1,23 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { UsersRound, UserRound, Newspaper, Menu, X, School, Shirt, Video } from 'lucide-react';
+import { UsersRound, UserRound, Newspaper, Menu, X, School, Shirt, Video, ChevronDown } from 'lucide-react';
 import logo from '../assets/images/logo.webp';
 
 const NavBar = ({ setActivePage }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isClassesDropdownOpen, setIsClassesDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+    if (isMobileMenuOpen) {
+      // Close mobile dropdown when the main menu is closed
+      setIsClassesDropdownOpen(false);
+    }
+  };
+
+  const handleClassesDropdownToggle = () => {
+    setIsClassesDropdownOpen(!isClassesDropdownOpen);
+  };
+
+  const closeMenus = () => {
+    setIsMobileMenuOpen(false);
+    setIsClassesDropdownOpen(false);
+  };
+
+  // Close dropdown when clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsClassesDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
+
+  // Handler for mobile link clicks
+  const handleMobileLinkClick = () => {
+    setIsMobileMenuOpen(false);
+    setIsClassesDropdownOpen(false);
   };
 
   return (
     <nav className="w-full flex items-center justify-between px-4 py-3 md:px-8 md:py-4 bg-[#272727] backdrop-blur-none relative z-50">
+      {/* Logo */}
       <div className="flex items-center">
         <Link to="/" aria-label="Go to Home Page" className="block w-[80px] md:w-[100px] h-auto">
           <img src={logo} alt="Studio Dance Core Logo" className="max-w-full h-auto" />
         </Link>
       </div>
 
+      {/* Mobile Menu Toggle */}
       <div className="md:hidden flex items-center">
         <button
           onClick={toggleMobileMenu}
@@ -32,17 +68,41 @@ const NavBar = ({ setActivePage }) => {
         </button>
       </div>
 
+      {/* Desktop Navigation Links */}
       <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-        <Link
-          to="/classes"
-          className="flex items-center text-white hover:text-[#EFD09E] transition-colors duration-200 text-base lg:text-lg font-medium group"
-          aria-label="Go to Classes Page"
-          style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
-          onClick={() => { setActivePage('/classes'); }}
-        >
-          <School className="h-5 w-5 mr-1 group-hover:scale-110 transition-transform" />
-          Classes
-        </Link>
+        {/* Classes Dropdown for Desktop */}
+        <div className="relative" ref={dropdownRef}>
+          <button
+            onClick={handleClassesDropdownToggle}
+            className="flex items-center text-white hover:text-[#EFD09E] transition-colors duration-200 text-base lg:text-lg font-medium group focus:outline-none"
+            aria-label="Toggle Classes and Lessons Menu"
+            style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
+          >
+            <School className="h-5 w-5 mr-1 group-hover:scale-110 transition-transform" />
+            Classes & Lessons
+            <ChevronDown className={`h-4 w-4 ml-1 transition-transform ${isClassesDropdownOpen ? 'rotate-180' : 'rotate-0'}`} />
+          </button>
+          {isClassesDropdownOpen && (
+            <div className="absolute top-full mt-2 w-48 bg-black rounded-md shadow-lg py-2 z-50 animate-fade-in-down">
+              <Link
+                to="/classes"
+                className="block px-4 py-2 text-sm text-white hover:bg-[#EFD09E] hover:text-black transition-colors duration-200"
+                onClick={() => { setActivePage('/classes'); setIsClassesDropdownOpen(false); }}
+              >
+                Classes
+              </Link>
+              <Link
+                to="/lessons"
+                className="block px-4 py-2 text-sm text-white hover:bg-[#EFD09E] hover:text-black transition-colors duration-200"
+                onClick={() => { setActivePage('/lessons'); setIsClassesDropdownOpen(false); }}
+              >
+                Lessons
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* Other Desktop Links */}
         <Link
           to="/productions"
           className="flex items-center text-white hover:text-[#EFD09E] transition-colors duration-200 text-base lg:text-lg font-medium group"
@@ -94,30 +154,48 @@ const NavBar = ({ setActivePage }) => {
         </Link>
       </div>
 
+      {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-black bg-opacity-95 flex flex-col items-center py-6 space-y-6 animate-fade-in-down">
-          <Link
-            to="/classes"
-            className="flex items-center text-white hover:text-[#FFDBBB] transition-colors duration-200 text-xl font-medium"
-            aria-label="Go to Classes Page"
-            style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
-            onClick={() => {
-              setActivePage('/classes');
-              setIsMobileMenuOpen(false);
-            }}
-          >
-            <School className="h-7 w-7 mr-2" />
-            Classes
-          </Link>
+          {/* Classes Dropdown for Mobile */}
+          <div className="w-full flex flex-col items-center">
+            <button
+              onClick={handleClassesDropdownToggle}
+              className="flex items-center text-white hover:text-[#FFDBBB] transition-colors duration-200 text-xl font-medium"
+              aria-label="Toggle Classes and Lessons Menu"
+              style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
+            >
+              <School className="h-7 w-7 mr-2" />
+              Classes & Lessons
+              <ChevronDown className={`h-5 w-5 ml-2 transition-transform ${isClassesDropdownOpen ? 'rotate-180' : 'rotate-0'}`} />
+            </button>
+            {isClassesDropdownOpen && (
+              <div className="flex flex-col items-center mt-4 space-y-4 w-full">
+                <Link
+                  to="/classes"
+                  className="w-1/2 text-center text-white hover:text-[#EFD09E] transition-colors duration-200 text-lg font-medium"
+                  onClick={handleMobileLinkClick}
+                >
+                  Classes
+                </Link>
+                <Link
+                  to="/lessons"
+                  className="w-1/2 text-center text-white hover:text-[#EFD09E] transition-colors duration-200 text-lg font-medium"
+                  onClick={handleMobileLinkClick}
+                >
+                  Lessons
+                </Link>
+              </div>
+            )}
+          </div>
+          
+          {/* Other Mobile Links */}
           <Link
             to="/productions"
             className="flex items-center text-white hover:text-[#FFDBBB] transition-colors duration-200 text-xl font-medium"
             aria-label="Go to Productions Page"
             style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
-            onClick={() => {
-              setActivePage('/productions');
-              setIsMobileMenuOpen(false);
-            }}
+            onClick={handleMobileLinkClick}
           >
             <Video className="h-7 w-7 mr-2" />
             Productions
@@ -127,10 +205,7 @@ const NavBar = ({ setActivePage }) => {
             className="flex items-center text-white hover:text-[#FFDBBB] transition-colors duration-200 text-xl font-medium"
             aria-label="Go to Merch Page"
             style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
-            onClick={() => {
-              setActivePage('/merchs');
-              setIsMobileMenuOpen(false);
-            }}
+            onClick={handleMobileLinkClick}
           >
             <Shirt className="h-7 w-7 mr-2" />
             Merchs
@@ -140,10 +215,7 @@ const NavBar = ({ setActivePage }) => {
             className="flex items-center text-white hover:text-[#FFDBBB] transition-colors duration-200 text-xl font-medium"
             aria-label="Go to News Page"
             style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
-            onClick={() => {
-              setActivePage('/news');
-              setIsMobileMenuOpen(false);
-            }}
+            onClick={handleMobileLinkClick}
           >
             <Newspaper className="h-7 w-7 mr-2" />
             News
@@ -153,10 +225,7 @@ const NavBar = ({ setActivePage }) => {
             className="flex items-center text-white hover:text-[#FFDBBB] transition-colors duration-200 text-xl font-medium"
             aria-label="Go to About Us Page"
             style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
-            onClick={() => {
-              setActivePage('/about-us');
-              setIsMobileMenuOpen(false);
-            }}
+            onClick={handleMobileLinkClick}
           >
             <UsersRound className="h-7 w-7 mr-2" />
             Who We Are?
@@ -166,11 +235,9 @@ const NavBar = ({ setActivePage }) => {
             className="flex items-center px-4 py-2 rounded-full bg-white text-black hover:bg-black hover:text-white transition-colors duration-200 text-base lg:text-lg font-medium group"
             aria-label="Go to Login Page"
             style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
-            onClick={() => {
-              setIsMobileMenuOpen(false);
-            }}
+            onClick={handleMobileLinkClick}
           >
-            <UsersRound className="h-7 w-7 mr-2" />
+            <UserRound className="h-7 w-7 mr-2" />
             Log In
           </Link>
         </div>

@@ -48,7 +48,7 @@ const HomePage = ({ setActivePage }) => {
 
   // Navigate to the Lession page
   const navigateToLessionPage = () => {
-    navigate('/lessions');
+    navigate('/lessons');
   };
 
   return (
@@ -142,7 +142,7 @@ const HomePage = ({ setActivePage }) => {
           </section>
         </div>
 
-        {/* Merch & Lessions Section - Flex container for side-by-side layout */}
+        {/* Merch & Lessons Section - Flex container for side-by-side layout */}
         <div className="flex flex-col md:flex-row gap-4 w-screen mx-auto py-1">
           {/* Merch Section */}
           <section
@@ -162,7 +162,7 @@ const HomePage = ({ setActivePage }) => {
             </div>
           </section>
 
-          {/* Lessions Section */}
+          {/* Lessons Section */}
           <section
             id="lession-section"
             className="w-full md:w-1/2 bg-transparent flex flex-col items-center"
@@ -173,7 +173,7 @@ const HomePage = ({ setActivePage }) => {
             >
               <img
                 src={lession}
-                alt="An image representing lessions"
+                alt="An image representing lessons"
                 className="w-full h-auto"
               />
               <div className="absolute inset-0 hover:bg-opacity-0 transition-opacity duration-300"></div>
