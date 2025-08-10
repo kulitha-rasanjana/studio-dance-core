@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import heroVideoMp4 from '../assets/videos/home.mp4';
 import heroVideoWebm from '../assets/videos/Home.webm';
-import { logo, classesandevents, merch, productions, headlogo, bg } from '../utils/config';
+import { logo, classesandevents, merch, productionsWebm, productionsMp4, headlogo, bg, lession, productions } from '../utils/config';
 
 // Import NavBar component
 import NavBar from '../components/NavBar';
@@ -20,47 +20,11 @@ const HomePage = ({ setActivePage }) => {
   const merchRef = useRef(null);
   // The ref for the Classes section has been removed
   const aboutUsRef = useRef(null);
+  // Note: The classVideosRef was not defined in the original component, so it has been removed from the useEffect.
 
   const navigate = useNavigate();
   const location = useLocation();
   const [notFoundMessage, setNotFoundMessage] = useState(null);
-
-  // Effect to scroll to sections based on URL hash or display 'not found' message
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const notFoundQuery = params.get('notFound');
-
-    setNotFoundMessage(null); // Clear any previous message first
-    let timeoutId;
-
-    const scrollOptions = { behavior: 'smooth', block: 'start' };
-
-    if (location.hash === '#merch-section' && merchRef.current) {
-      merchRef.current.scrollIntoView(scrollOptions);
-      window.history.replaceState({}, document.title, window.location.pathname);
-    } else if (location.hash === '#productions-section' && productionsRef.current) {
-      productionsRef.current.scrollIntoView(scrollOptions);
-      window.history.replaceState({}, document.title, window.location.pathname);
-    } else if (location.hash === '#class-videos-section' && classVideosRef.current) {
-      classVideosRef.current.scrollIntoView(scrollOptions);
-      window.history.replaceState({}, document.title, window.location.pathname);
-    } else if (location.hash === '#about-us-section' && aboutUsRef.current) {
-      aboutUsRef.current.scrollIntoView(scrollOptions);
-      window.history.replaceState({}, document.title, window.location.pathname);
-    } else if (notFoundQuery) {
-      setNotFoundMessage(`"${decodeURIComponent(notFoundQuery)}" not found.`);
-      timeoutId = setTimeout(() => {
-        setNotFoundMessage(null);
-      }, 10000); // Message disappears after 10 seconds
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-
-    return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }, [location.hash, location.search]);
 
   // Navigate to the About Us page
   const navigateToAboutUsPage = () => {
@@ -82,8 +46,13 @@ const HomePage = ({ setActivePage }) => {
     navigate('/productions');
   };
 
+  // Navigate to the Lession page
+  const navigateToLessionPage = () => {
+    navigate('/lessions');
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center bg-transperant w-screen">
+    <div className="flex flex-col items-center justify-center bg-transparent w-screen">
       {/* Sticky NavBar and Not Found Message */}
       <div className="sticky top-0 z-50 w-full">
         <NavBar setActivePage={setActivePage} />
@@ -94,17 +63,16 @@ const HomePage = ({ setActivePage }) => {
         )}
       </div>
       <main
-        className="min-h-screen text-gray-400 flex flex-col items-center relative" // Added relative for pseudo-element (if using) or if needed for child positioning
+        className="min-h-screen w-full text-gray-400 flex flex-col items-center relative"
         style={{
           backgroundImage: `url(${bg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed', // Keeps background fixed while content scrolls
-          backgroundColor: 'rgba(0, 0, 0, 0.7)', // This creates the direct overlay on the main background
-          backgroundBlendMode: 'multiply' // Optional: blends the background image with the color
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          backgroundBlendMode: 'multiply'
         }}
       >
-
         {/* Hero Video Section */}
         <section
           className="relative w-screen h-[calc(100vw*3/4)] md:h-[80vh] lg:h-[60vh] flex justify-center mt-0 pt-0"
@@ -126,61 +94,92 @@ const HomePage = ({ setActivePage }) => {
           </video>
         </section>
 
-        {/* Productions Section */}
-        <section
-          id="productions-section"
-          className="p-1 w-full bg-transperant flex flex-col items-center"
-        >
-          <div
-            onClick={navigateToProductionsPage}
-            className="relative w-full max-w-4xl cursor-pointer overflow-hidden rounded-lg shadow-xl hover:scale-105 transition-transform duration-300"
+        {/* Productions & Classes Section - Flex container for side-by-side layout */}
+        <div className="flex flex-col md:flex-row gap-4 w-screen mx-auto py-1">
+          {/* Productions Section */}
+          <section
+            id="productions-section"
+            className="w-full md:w-1/2 bg-transparent flex flex-col items-center"
           >
-            <img
-              src={productions}
-              alt="An image representing productions"
-              className="w-full h-auto"
-            />
-            <div className="absolute inset-0 hover:bg-opacity-0 transition-opacity duration-300"></div>
-          </div>
-        </section>
+            <div
+              onClick={navigateToProductionsPage}
+              className="relative w-full cursor-pointer overflow-hidden rounded-lg shadow-xl hover:scale-105 transition-transform duration-300"
+            >
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                title="Productions"
+                poster={productions}
+              >
+                {/* WebM first for potentially smaller file size */}
+                <source src={productionsWebm} type="video/webm" />
+                {/* MP4 as a fallback for broader compatibility */}
+                <source src={productionsMp4} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div className="absolute inset-0 hover:bg-opacity-0 transition-opacity duration-300"></div>
+            </div>
+          </section>
 
-        {/* Merch Section */}
-        <section
-          id="merch-section"
-          className="p-1 w-full bg-transperant flex flex-col items-center"
-        >
-          <div
-            onClick={navigateToMerchPage}
-            className="relative w-full max-w-4xl cursor-pointer overflow-hidden rounded-lg shadow-xl hover:scale-105 transition-transform duration-300"
+          {/* Classes Section */}
+          <section
+            id="classes-section"
+            className="w-full md:w-1/2 bg-transparent flex flex-col items-center"
           >
-            <img
-              src={merch}
-              alt="An image representing merchandise"
-              className="w-full h-auto"
-            />
-            <div className="absolute inset-0 hover:bg-opacity-0 transition-opacity duration-300"></div>
-          </div>
-        </section>
+            <div
+              onClick={navigateToClassesPage}
+              className="relative w-full cursor-pointer overflow-hidden rounded-lg shadow-xl hover:scale-105 transition-transform duration-300"
+            >
+              <img
+                src={classesandevents}
+                alt="An image representing dance classes"
+                className="w-full h-auto"
+              />
+              <div className="absolute inset-0 hover:bg-opacity-0 transition-opacity duration-300"></div>
+            </div>
+          </section>
+        </div>
 
-        {/* Our Classes Section */}
-        <section
-          id="classes-section"
-          className="p-1 w-full bg-transperant flex flex-col items-center"
-        >
-          <div
-            onClick={navigateToClassesPage}
-            className="relative w-full max-w-4xl cursor-pointer overflow-hidden rounded-lg shadow-xl hover:scale-105 transition-transform duration-300"
+        {/* Merch & Lessions Section - Flex container for side-by-side layout */}
+        <div className="flex flex-col md:flex-row gap-4 w-screen mx-auto py-1">
+          {/* Merch Section */}
+          <section
+            id="merch-section"
+            className="w-full md:w-1/2 bg-transparent flex flex-col items-center"
           >
-            {/* Using a placeholder image. You should replace this with your actual image */}
-            <img
-              src={classesandevents}
-              alt="An image representing dance classes"
-              className="w-full h-auto"
-            />
-            {/* Optional overlay for a more polished look */}
-            <div className="absolute inset-0 hover:bg-opacity-0 transition-opacity duration-300"></div>
-          </div>
-        </section>
+            <div
+              onClick={navigateToMerchPage}
+              className="relative w-full cursor-pointer overflow-hidden rounded-lg shadow-xl hover:scale-105 transition-transform duration-300"
+            >
+              <img
+                src={merch}
+                alt="An image representing merchandise"
+                className="w-full h-auto"
+              />
+              <div className="absolute inset-0 hover:bg-opacity-0 transition-opacity duration-300"></div>
+            </div>
+          </section>
+
+          {/* Lessions Section */}
+          <section
+            id="lession-section"
+            className="w-full md:w-1/2 bg-transparent flex flex-col items-center"
+          >
+            <div
+              onClick={navigateToLessionPage}
+              className="relative w-full cursor-pointer overflow-hidden rounded-lg shadow-xl hover:scale-105 transition-transform duration-300"
+            >
+              <img
+                src={lession}
+                alt="An image representing lessions"
+                className="w-full h-auto"
+              />
+              <div className="absolute inset-0 hover:bg-opacity-0 transition-opacity duration-300"></div>
+            </div>
+          </section>
+        </div>
 
         {/* About Us Section */}
         <section ref={aboutUsRef} className="p-8 w-full bg-gray-100 flex flex-col items-center">
