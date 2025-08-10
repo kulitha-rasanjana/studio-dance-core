@@ -1,8 +1,7 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
 import PersonProfileCard from '../components/PersonProfileCard';
-import FallingRoseBackground from '../components/FallingRoseBackground';
-import {bg} from '../utils/config';
+import { bg } from '../utils/config';
 // Import unique images for each person (front and back)
 // ASSUME THESE PATHS AND FILENAMES ARE CORRECT IN YOUR PROJECT
 import jayaruwanFront from '../assets/images/profiles/jayaruwan-prabodya.webp';
@@ -17,7 +16,6 @@ import backgroundImage from '../assets/images/bg.webp'; // <--- IMPORTANT: Updat
 
 const AboutUsPage = () => (
   <>
-    <FallingRoseBackground />
     {/* Apply background image styles to the outermost div */}
     <div
       className="text-white bg-transperant bg-center bg-no-repeat min-h-screen" // Added bg-cover, bg-center, bg-no-repeat, and min-h-screen

@@ -7,23 +7,10 @@ import NavBar from '../components/NavBar';
 // Import the LoginPage component from its new file
 import LoginPage from './LoginPage';
 
-import lessonsData from '../utils/lessons'; // Import lessons data
+// Correct import for your new lessons.js file
+import { lessonsData, paidLessonsData } from '../utils/lessons';
 
-// Mock data for paid lessons
-const paidLessonsData = [
-  {
-    title: "Advanced Choreography: Part 1",
-    file: "/assets/pdfs/advanced-lesson-1.pdf"
-  },
-  {
-    title: "Breakdancing Fundamentals",
-    file: "/assets/pdfs/advanced-lesson-2.pdf"
-  },
-  {
-    title: "Contemporary Dance Techniques",
-    file: "/assets/pdfs/advanced-lesson-3.pdf"
-  }
-];
+
 
 // Use forwardRef to allow HomePage to pass a ref to this component
 const LessonsPage = forwardRef((props, ref) => { // 'ref' is the second argument from forwardRef
