@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import heroVideoMp4 from '../assets/videos/home.mp4';
 import heroVideoWebm from '../assets/videos/Home.webm';
-import { logo, classesandevents, merch, productionsWebm, productionsMp4, headlogo, bg, lession, productions } from '../utils/config';
+import { logo, classesandevents, merch, //productionsWebm,
+ productionsMp4, headlogo, bg, lession, productions } from '../utils/config';
 
 // Import NavBar component
 import NavBar from '../components/NavBar';
@@ -113,8 +114,6 @@ const HomePage = ({ setActivePage }) => {
                 title="Productions"
                 poster={productions}
               >
-                {/* WebM first for potentially smaller file size */}
-                <source src={productionsWebm} type="video/webm" />
                 {/* MP4 as a fallback for broader compatibility */}
                 <source src={productionsMp4} type="video/mp4" />
                 Your browser does not support the video tag.
