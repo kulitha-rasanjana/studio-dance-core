@@ -9,7 +9,6 @@ import ClassVideos from './ClassVideos';
 import NavBar from '../components/NavBar';
 // Import the LoginPage component from its new file
 import LoginPage from './LoginPage';
-import lessonsData from '../utils/lessons'; // Import lessons data
 // Import the event images
 import freeDanceWorkshopImage from '../assets/images/events/event-1.webp';
 import freeDanceWorkshopImage2 from '../assets/images/events/event-2.jpeg';

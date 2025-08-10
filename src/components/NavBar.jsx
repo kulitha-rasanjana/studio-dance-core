@@ -83,7 +83,7 @@ const NavBar = ({ setActivePage }) => {
             <ChevronDown className={`h-4 w-4 ml-1 transition-transform ${isClassesDropdownOpen ? 'rotate-180' : 'rotate-0'}`} />
           </button>
           {isClassesDropdownOpen && (
-            <div className="absolute top-full mt-2 w-48 bg-black rounded-md shadow-lg py-2 z-50 animate-fade-in-down">
+            <div className="absolute top-full mt-2 w-48 bg-black rounded-md shadow-lg py-2 z-50 animate-fade-in-down" style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}>
               <Link
                 to="/classes"
                 className="block px-4 py-2 text-sm text-white hover:bg-[#EFD09E] hover:text-black transition-colors duration-200"
