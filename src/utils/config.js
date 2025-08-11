@@ -5,3 +5,4 @@ export { default as bg } from '../assets/images/bg.webp';
 export { default as productions } from '../assets/images/productions.webp';
 export { default as headlogo } from '../assets/images/headlogo.webp';
 export { default as lession } from '../assets/images/lessons.webp';
+export { default as loginbg } from '../assets/images/sign-in-bg.webp';

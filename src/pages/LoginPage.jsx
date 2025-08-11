@@ -1,6 +1,6 @@
 // src/components/LoginPage.jsx
 import React, { useState } from 'react';
-import { bg } from '../utils/config';
+import { loginbg } from '../utils/config';
 
 // A standalone login component to be shown as a modal
 const LoginPage = ({ onClose }) => {
@@ -31,7 +31,7 @@ const LoginPage = ({ onClose }) => {
       <div 
         className="rounded-xl p-8 max-w-md w-full relative shadow-2xl transform transition-transform duration-300 scale-95 md:scale-100"
         style={{
-          backgroundImage: `url(${bg})`,
+          backgroundImage: `url(${loginbg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundBlendMode: 'multiply',
