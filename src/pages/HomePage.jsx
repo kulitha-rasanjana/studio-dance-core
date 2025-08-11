@@ -71,7 +71,7 @@ const HomePage = ({ setActivePage }) => {
       >
         {/* Hero Video Section */}
         <section
-          className="relative w-screen h-[calc(100vw*3/4)] md:h-[80vh] lg:h-[60vh] flex justify-center mt-0 pt-0"
+          className="relative w-screen h-screen flex justify-center mt-0 pt-0"
         >
           <video
             className="absolute w-full h-full object-cover opacity-100"
