@@ -90,6 +90,12 @@ const HomePage = ({ setActivePage }) => {
           </video>
         </section>
 
+        {/* Latest News */}
+        <div className="p-50 w-full bg-white flex flex-col items-center">
+          <div className="w-full bg-white p-6 rounded-lg shadow-lg">
+          </div>
+        </div>
+
         {/* Productions & Classes Section - Flex container for side-by-side layout */}
         <div className="flex flex-col md:flex-row gap-4 w-screen mx-auto py-1">
           {/* Productions Section */}
@@ -130,11 +136,14 @@ const HomePage = ({ setActivePage }) => {
         </div>
 
         {/* Spacer for theme */}
-        < section ref={aboutUsRef} className="p-8 w-full bg-black flex flex-col items-center" >
-          <h2 className="text-4xl md:text-4xl font-bold text-white" style={{ fontFamily: "'Bebas Neue'", letterSpacing: '0.1em', color: '#EFD09E' }}>
-            We Bring ART to
+        <section ref={aboutUsRef} className="p-50 w-full bg-white flex flex-col items-center">
+          <h2 className="text-4xl md:text-6xl font-bold text-black" style={{ fontFamily: "'Bebas Neue'", letterSpacing: '0.1em' }}>
+            We Bring ART
           </h2>
-          <h1 className="text-4xl md:text-6xl font-bold text-white" style={{ fontFamily: "'Bebas Kai'", letterSpacing: '0.1em', color: '#EFD09E' }}>
+          <h2 className="text-4xl md:text-5xl font-bold text-black" style={{ fontFamily: "'Bebas Neue'", letterSpacing: '0.1em' }}>
+            to
+          </h2>
+          <h1 className="text-4xl md:text-9xl font-bold text-black" style={{ fontFamily: "'Bebas Kai'", letterSpacing: '0.1em' }}>
             NEXT LEVEL
           </h1>
         </section >

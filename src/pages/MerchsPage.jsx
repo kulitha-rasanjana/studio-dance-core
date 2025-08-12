@@ -8,7 +8,7 @@ import merchScarf from "../assets/images/scarf_soon.webp";
 
 // Reusable component for a Merch Card
 const MerchCard = ({ item, url }) => (
-  <div className="flex-shrink-0 w-48 h-56 sm:w-56 sm:h-64 md:w-64 md:h-75 bg-white rounded-xl shadow-lg p-3 sm:p-4 flex flex-col justify-between items-center text-center mx-2 sm:mx-3 md:mx-4 transition-transform duration-300 ease-in-out hover:scale-105 transform-gpu">
+  <div className="flex-shrink-0 w-76 h-84 sm:w-84 sm:h-92 md:w-92 md:h-100 bg-white rounded-xl shadow-lg p-4 sm:p-5 flex flex-col justify-between items-center text-center mx-3 sm:mx-4 md:mx-5 transition-transform duration-300 ease-in-out hover:scale-105 transform-gpu">
     <a
       href={url}
       target="_blank"
@@ -19,11 +19,11 @@ const MerchCard = ({ item, url }) => (
       <img
         src={item.image}
         alt={item.name}
-        className="max-h-[70%] sm:max-h-[80%] w-auto object-contain mb-2 rounded"
+        className="max-h-[75%] sm:max-h-[80%] w-auto object-contain mb-3 rounded"
         onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/200x200/F0F0F0/333333?text=Image+Error"; }}
       />
-      <p className="text-black text-base sm:text-lg font-semibold">{item.name}</p>
-      <p className="text-gray-600 text-xs sm:text-sm">Rs.{item.price}</p>
+      <p className="text-black text-lg sm:text-xl font-semibold">{item.name}</p>
+      <p className="text-gray-600 text-sm sm:text-base">{item.price}</p>
     </a>
   </div>
 );
@@ -33,7 +33,7 @@ const MerchsPage = forwardRef((props, ref) => {
   const merchContainerRef = useRef(null);
 
   const merchItems = [
-    { id: 'tshirt', name: 'Studio T-Shirt', price: '2699.00', image: merchTshirt, url: 'https://docs.google.com/forms/d/e/1FAIpQLSf_KSj1Mwu-8qHwq0vvSz-HC5wDiNJcqh-nUGEea-FqHwZbBQ/viewform?usp=dialog' },
+    { id: 'tshirt', name: 'Studio T-Shirt', price: 'LKR 2699.00', image: merchTshirt, url: 'https://docs.google.com/forms/d/e/1FAIpQLSf_KSj1Mwu-8qHwq0vvSz-HC5wDiNJcqh-nUGEea-FqHwZbBQ/viewform?usp=dialog' },
     { id: 'scarf', name: 'Signature Scarf', price: 'COMING SOON', image: merchScarf, url: '#' },
   ];
 
@@ -57,7 +57,7 @@ const MerchsPage = forwardRef((props, ref) => {
   return (
     <div className="flex flex-col items-center justify-center bg-black w-full">
       <div className="sticky top-0 z-50 w-full">
-        <NavBar setActivePage='classes' />
+        <NavBar setActivePage='merchs' />
       </div>
       <main
         className="min-h-screen w-full text-gray-400 p-4 sm:p-6 md:p-8 flex flex-col items-center relative" // Added relative for pseudo-element (if using) or if needed for child positioning
@@ -83,7 +83,7 @@ const MerchsPage = forwardRef((props, ref) => {
                 <MerchCard key={item.id} item={item} url={item.url || '#'} />
               ))
             ) : (
-              <p className="text-lg text-gray-300 text-center w-full">More awesome merch coming soon!</p>
+              <p className="text-lg text-gray-200 text-center w-full">More awesome merch coming soon!</p>
             )}
           </div>
         </section>
