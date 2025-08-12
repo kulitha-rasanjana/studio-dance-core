@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import heroVideoMp4 from '../assets/videos/home.mp4';
 import heroVideoWebm from '../assets/videos/Home.webm';
-import { logo, classesandevents, merch, headlogo, bg, lession, productions } from '../utils/config';
+import { logo, classesandevents, merch, headlogo, bg, lession, productions, moto } from '../utils/config';
 import NavBar from '../components/NavBar';
 
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -135,18 +135,26 @@ const HomePage = ({ setActivePage }) => {
           </section>
         </div>
 
-        {/* Spacer for theme */}
-        <section ref={aboutUsRef} className="p-50 w-full bg-white flex flex-col items-center">
-          <h2 className="text-4xl md:text-6xl font-bold text-black" style={{ fontFamily: "'Bebas Neue'", letterSpacing: '0.1em' }}>
-            We Bring ART
-          </h2>
-          <h2 className="text-4xl md:text-5xl font-bold text-black" style={{ fontFamily: "'Bebas Neue'", letterSpacing: '0.1em' }}>
-            to
-          </h2>
-          <h1 className="text-4xl md:text-9xl font-bold text-black" style={{ fontFamily: "'Bebas Kai'", letterSpacing: '0.1em' }}>
-            NEXT LEVEL
-          </h1>
-        </section >
+        {/* Moto */}
+        <section
+          className="relative w-screen h-[calc(100vw*3/4)] md:h-[80vh] lg:h-[60vh] flex justify-center mt-0 pt-0"
+        >
+          <video
+            className="absolute w-full h-full object-cover opacity-100"
+            autoPlay
+            loop
+            muted
+            playsInline
+            title="We brings are to next level"
+            poster={logo} // Poster image for video before it loads
+          >
+            {/* WebM first for potentially smaller file size */}
+            <source src={moto} type="video/webm" />
+            {/* MP4 as a fallback for broader compatibility */}
+            <source src={heroVideoMp4} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </section>
 
         {/* Merch & Lessons Section - Flex container for side-by-side layout */}
         < div className="flex flex-col md:flex-row gap-4 w-screen mx-auto py-1" >
@@ -187,29 +195,37 @@ const HomePage = ({ setActivePage }) => {
           </section >
         </div >
 
-        {/* About Us Section */}
-        < section ref={aboutUsRef} className="p-8 w-full bg-gray-100 flex flex-col items-center" >
+        <section ref={aboutUsRef} className="p-8 w-full bg-gray-100 flex flex-col items-center">
           <div className="flex flex-col md:flex-row items-center">
             {/* Placeholder for the image */}
-            <div className="w-full md:w-1/4 p-4">
+            <div className="w-full md:w-1/4 p-4 flex justify-center">
               <img
                 src={headlogo}
                 alt="An image representing Studio Dance Core"
-                className="w-full h-auto"
+                className="w-full h-auto" // Added max-w-xs to constrain image size on larger screens
               />
             </div>
             {/* The paragraph on the right side */}
             <div className="w-full md:w-3/4">
-              <h2 className="p-4 text-4xl md:text-4xl font-bold text-gray-800" style={{ fontFamily: "'MetroPhotograph - Demo Version Regular'", letterSpacing: '0.1em', color: '#272727' }}>
+              <h2
+                className="p-6 text-4xl md:text-4xl font-bold text-gray-800 text-center md:text-left"
+                style={{
+                  fontFamily: "'MetroPhotograph - Demo Version Regular'",
+                  letterSpacing: '0.1em',
+                  color: '#272727',
+                }}
+              >
                 About Us
               </h2>
-              <p
-                className="font-sans text-base md:text-lg text-gray-600 text-justify p-6"
-              >
-                Studio Dance Core is a vibrant hub for artistic expression located in the heart of Sri Lanka. We are passionate about creating unique, high-quality video content that showcases our innovative ideas and talent. Our professional dance classes are specifically tailored for young Sri Lankan students and teenagers, providing a nurturing environment where they can develop their skills and creativity. Beyond the studio, we are dedicated to producing meaningful and enjoyable projects for our audience.
+              <p className="font-sans text-base md:text-lg text-gray-600 text-justify p-6">
+                Studio Dance Core is a vibrant hub for artistic expression located in the Sri Lanka. 
+                We are passionate about creating unique, high-quality video content that showcases our innovative ideas and talent. 
+                Our professional dance classes are specifically tailored for young Sri Lankan students and teenagers, 
+                providing a nurturing environment where they can develop their skills and creativity. Beyond the studio, we are dedicated
+                to producing meaningful and enjoyable projects for our audience.
               </p>
 
-              <div className='px-8 py-3 md:px-10 md:py-4'>
+              <div className="px-8 py-3 md:px-10 md:py-4">
                 {/* Contact Information */}
                 <p className="text-base md:text-lg text-gray-600 text-center flex-grow text-justify max-w-2xl">
                   <FontAwesomeIcon icon={faEnvelope} />{' '}
@@ -238,17 +254,19 @@ const HomePage = ({ setActivePage }) => {
                 <br />
 
                 {/* See More Button */}
-                <button
-                  className="px-6 py-3 md:px-10 md:py-4 bg-[#272727] text-white text-base md:text-lg font-semibold rounded-full shadow-lg flex items-center justify-center
+                <div className="flex justify-center md:justify-start">
+                  <button
+                    className="px-6 py-3 md:px-10 md:py-4 bg-[#272727] text-white text-base md:text-lg font-semibold rounded-full shadow-lg flex items-center justify-center
                           hover:bg-[#EFD09E] transform hover:scale-105 transition-all duration-300 hover:text-[#272727]"
-                  onClick={navigateToAboutUsPage}
-                >
-                  See More
-                </button>
+                    onClick={navigateToAboutUsPage}
+                  >
+                    See More
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </section >
+        </section>
       </main >
     </div >
   );
