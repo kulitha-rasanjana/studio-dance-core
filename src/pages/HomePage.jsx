@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import heroVideoMp4 from '../assets/videos/home.mp4';
 import heroVideoWebm from '../assets/videos/Home.webm';
-import { logo, classesandevents, merch, headlogo, bg, lession, productions, moto } from '../utils/config';
+import { logo, classesandevents, merch, headlogo, bg, lession, productions, moto, bggradiant } from '../utils/config';
 import NavBar from '../components/NavBar';
 
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -59,7 +59,7 @@ const HomePage = ({ setActivePage }) => {
       <main
         className="min-h-screen w-full text-gray-400 flex flex-col items-center relative"
         style={{
-          backgroundImage: `url(${bg})`,
+          backgroundImage: `url(${bggradiant})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
@@ -67,7 +67,7 @@ const HomePage = ({ setActivePage }) => {
           backgroundBlendMode: 'multiply',
         }}
       >
-        {/* Hero Video Section */}
+
         {/* Hero Video Section */}
         <section className="relative w-screen h-[50vh] md:h-screen flex justify-center mt-0 pt-0">
           <video
@@ -77,7 +77,7 @@ const HomePage = ({ setActivePage }) => {
             muted
             playsInline
             title="Studio Dance Core"
-            poster={logo} // Poster image for video before it loads
+            poster={logo}
           >
             {/* WebM first for potentially smaller file size */}
             <source src={heroVideoWebm} type="video/webm" />
@@ -89,7 +89,7 @@ const HomePage = ({ setActivePage }) => {
 
         {/* Latest News */}
         <div className="p-50 w-full bg-white flex flex-col items-center">
-          <div className="w-full bg-white p-6 rounded-lg shadow-lg"></div>
+          <div></div>
         </div>
 
         {/* Productions & Classes Section - Flex container for side-by-side layout */}
