@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import heroVideoMp4 from '../assets/videos/home.mp4';
 import heroVideoWebm from '../assets/videos/Home.webm';
 import { logo, classesandevents, merch, headlogo, bg, lession, productions, moto } from '../utils/config';
@@ -14,9 +14,7 @@ const HomePage = ({ setActivePage }) => {
   // Refs for scrolling to sections
   const productionsRef = useRef(null);
   const merchRef = useRef(null);
-  // The ref for the Classes section has been removed
   const aboutUsRef = useRef(null);
-  // Note: The classVideosRef was not defined in the original component, so it has been removed from the useEffect.
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -66,13 +64,12 @@ const HomePage = ({ setActivePage }) => {
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
           backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          backgroundBlendMode: 'multiply'
+          backgroundBlendMode: 'multiply',
         }}
       >
         {/* Hero Video Section */}
-        <section
-          className="relative w-screen h-screen flex justify-center mt-0 pt-0"
-        >
+        {/* Hero Video Section */}
+        <section className="relative w-screen h-[50vh] md:h-screen flex justify-center mt-0 pt-0">
           <video
             className="absolute w-full h-full object-cover opacity-100"
             autoPlay
@@ -92,8 +89,7 @@ const HomePage = ({ setActivePage }) => {
 
         {/* Latest News */}
         <div className="p-50 w-full bg-white flex flex-col items-center">
-          <div className="w-full bg-white p-6 rounded-lg shadow-lg">
-          </div>
+          <div className="w-full bg-white p-6 rounded-lg shadow-lg"></div>
         </div>
 
         {/* Productions & Classes Section - Flex container for side-by-side layout */}
@@ -136,9 +132,7 @@ const HomePage = ({ setActivePage }) => {
         </div>
 
         {/* Moto */}
-        <section
-          className="relative w-screen h-[calc(100vw*3/4)] md:h-[80vh] lg:h-[60vh] flex justify-center mt-0 pt-0"
-        >
+        <section className="relative w-screen h-[calc(100vw*3/4)] md:h-[80vh] lg:h-[60vh] flex justify-center mt-0 pt-0">
           <video
             className="absolute w-full h-full object-cover opacity-100"
             autoPlay
@@ -157,9 +151,9 @@ const HomePage = ({ setActivePage }) => {
         </section>
 
         {/* Merch & Lessons Section - Flex container for side-by-side layout */}
-        < div className="flex flex-col md:flex-row gap-4 w-screen mx-auto py-1" >
+        <div className="flex flex-col md:flex-row gap-4 w-screen mx-auto py-1">
           {/* Merch Section */}
-          < section
+          <section
             id="merch-section"
             className="w-full md:w-1/2 bg-transparent flex flex-col items-center"
           >
@@ -174,10 +168,10 @@ const HomePage = ({ setActivePage }) => {
               />
               <div className="absolute inset-0 hover:bg-opacity-0 transition-opacity duration-300"></div>
             </div>
-          </section >
+          </section>
 
           {/* Lessons Section */}
-          < section
+          <section
             id="lession-section"
             className="w-full md:w-1/2 bg-transparent flex flex-col items-center"
           >
@@ -192,17 +186,18 @@ const HomePage = ({ setActivePage }) => {
               />
               <div className="absolute inset-0 hover:bg-opacity-0 transition-opacity duration-300"></div>
             </div>
-          </section >
-        </div >
+          </section>
+        </div>
 
+        {/* About Us Section */}
         <section ref={aboutUsRef} className="p-8 w-full bg-gray-100 flex flex-col items-center">
           <div className="flex flex-col md:flex-row items-center">
             {/* Placeholder for the image */}
-            <div className="w-full md:w-1/4 p-4 flex justify-center">
+            <div className="w-full md:w-1/4 p-4 flex justify-center md:justify-start">
               <img
                 src={headlogo}
                 alt="An image representing Studio Dance Core"
-                className="w-full h-auto" // Added max-w-xs to constrain image size on larger screens
+                className="w-full h-auto max-w-xs"
               />
             </div>
             {/* The paragraph on the right side */}
@@ -218,9 +213,9 @@ const HomePage = ({ setActivePage }) => {
                 About Us
               </h2>
               <p className="font-sans text-base md:text-lg text-gray-600 text-justify p-6">
-                Studio Dance Core is a vibrant hub for artistic expression located in the Sri Lanka. 
-                We are passionate about creating unique, high-quality video content that showcases our innovative ideas and talent. 
-                Our professional dance classes are specifically tailored for young Sri Lankan students and teenagers, 
+                Studio Dance Core is a vibrant hub for artistic expression located in the Sri Lanka.
+                We are passionate about creating unique, high-quality video content that showcases our innovative ideas and talent.
+                Our professional dance classes are specifically tailored for young Sri Lankan students and teenagers,
                 providing a nurturing environment where they can develop their skills and creativity. Beyond the studio, we are dedicated
                 to producing meaningful and enjoyable projects for our audience.
               </p>
@@ -267,8 +262,8 @@ const HomePage = ({ setActivePage }) => {
             </div>
           </div>
         </section>
-      </main >
-    </div >
+      </main>
+    </div>
   );
 };
 
