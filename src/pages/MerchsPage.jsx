@@ -1,5 +1,5 @@
 // src/components/MerchsPage.jsx
-import React, { useRef, useEffect, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { bg } from '../utils/config';
 import NavBar from '../components/NavBar';
 // Placeholder images - In a real application, you would use actual image paths
@@ -8,7 +8,7 @@ import merchScarf from "../assets/images/scarf_soon.webp";
 
 // Reusable component for a Merch Card
 const MerchCard = ({ item, url }) => (
-  <div className="flex-shrink-0 w-76 h-84 sm:w-84 sm:h-92 md:w-92 md:h-100 bg-white rounded-xl shadow-lg p-4 sm:p-5 flex flex-col justify-between items-center text-center mx-3 sm:mx-4 md:mx-5 transition-transform duration-300 ease-in-out hover:scale-105 transform-gpu">
+  <div className="w-full bg-white rounded-xl shadow-lg p-4 sm:p-5 flex flex-col justify-between items-center text-center transition-transform duration-300 ease-in-out hover:scale-105 transform-gpu">
     <a
       href={url}
       target="_blank"
@@ -30,29 +30,10 @@ const MerchCard = ({ item, url }) => (
 
 // Use forwardRef to allow HomePage to pass a ref to this component
 const MerchsPage = forwardRef((props, ref) => {
-  const merchContainerRef = useRef(null);
-
   const merchItems = [
     { id: 'tshirt', name: 'Studio T-Shirt', price: 'LKR 2699.00', image: merchTshirt, url: 'https://docs.google.com/forms/d/e/1FAIpQLSf_KSj1Mwu-8qHwq0vvSz-HC5wDiNJcqh-nUGEea-FqHwZbBQ/viewform?usp=dialog' },
     { id: 'scarf', name: 'Signature Scarf', price: 'COMING SOON', image: merchScarf, url: '#' },
   ];
-
-  useEffect(() => {
-    const merchContainer = merchContainerRef.current;
-
-    if (merchContainer) {
-      const handleWheelScroll = (event) => {
-        event.preventDefault();
-        merchContainer.scrollLeft += event.deltaY * 2.0;
-      };
-
-      merchContainer.addEventListener('wheel', handleWheelScroll);
-
-      return () => {
-        merchContainer.removeEventListener('wheel', handleWheelScroll);
-      };
-    }
-  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center bg-black w-full">
@@ -60,30 +41,27 @@ const MerchsPage = forwardRef((props, ref) => {
         <NavBar setActivePage='merchs' />
       </div>
       <main
-        className="min-h-screen w-full text-gray-400 p-4 sm:p-6 md:p-8 flex flex-col items-center relative" // Added relative for pseudo-element (if using) or if needed for child positioning
+        className="min-h-screen w-full text-gray-400 p-4 sm:p-6 md:p-8 flex flex-col items-center relative"
         style={{
-          backgroundImage: `url(${bg})`, // Corrected syntax here
+          backgroundImage: `url(${bg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundAttachment: 'fixed', // Keeps background fixed while content scrolls
-          backgroundColor: 'rgba(0, 0, 0, 0.7)', // This creates the direct overlay on the main background
-          backgroundBlendMode: 'multiply' // Optional: blends the background image with the color
+          backgroundAttachment: 'fixed',
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          backgroundBlendMode: 'multiply'
         }}
       >
-        <section className="w-full p-4 sm:p-6 md:p-8 bg-transparent text-white min-h-[500px] md:min-h-[600px] flex flex-col justify-center">
+        <section className="w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 bg-transparent text-white flex flex-col justify-center">
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 sm:mb-8 uppercase text-center" style={{ fontFamily: "'MetroPhotograph - Demo Version Regular'", letterSpacing: '0.1em', color: '#ffffffff' }}>
             Merchs
           </h2>
-          <div
-            ref={merchContainerRef}
-            className="flex overflow-x-auto py-12 merch-scroll-container flex-grow items-center justify-start sm:justify-center"
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
             {merchItems.length > 0 ? (
               merchItems.map((item) => (
                 <MerchCard key={item.id} item={item} url={item.url || '#'} />
               ))
             ) : (
-              <p className="text-lg text-gray-200 text-center w-full">More awesome merch coming soon!</p>
+              <p className="text-lg text-gray-200 text-center col-span-full">More awesome merch coming soon!</p>
             )}
           </div>
         </section>
