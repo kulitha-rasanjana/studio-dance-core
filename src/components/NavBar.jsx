@@ -6,12 +6,12 @@ import logo from '../assets/images/logo.webp';
 const NavBar = ({ setActivePage }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isClassesDropdownOpen, setIsClassesDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const desktopDropdownRef = useRef(null);
+  const mobileDropdownRef = useRef(null);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     if (isMobileMenuOpen) {
-      // Close mobile dropdown when the main menu is closed
       setIsClassesDropdownOpen(false);
     }
   };
@@ -25,18 +25,26 @@ const NavBar = ({ setActivePage }) => {
     setIsClassesDropdownOpen(false);
   };
 
-  // Close dropdown when clicking outside of it
+  // Close dropdown when clicking outside BOTH desktop and mobile dropdowns
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      const clickedOutsideDesktop =
+        desktopDropdownRef.current &&
+        !desktopDropdownRef.current.contains(event.target);
+      const clickedOutsideMobile =
+        mobileDropdownRef.current &&
+        !mobileDropdownRef.current.contains(event.target);
+
+      if (clickedOutsideDesktop && clickedOutsideMobile) {
         setIsClassesDropdownOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropdownRef]);
+  }, []);
 
   // Handler for mobile link clicks
   const handleMobileLinkClick = () => {
@@ -71,7 +79,7 @@ const NavBar = ({ setActivePage }) => {
       {/* Desktop Navigation Links */}
       <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
         {/* Classes Dropdown for Desktop */}
-        <div className="relative" ref={dropdownRef}>
+        <div className="relative" ref={desktopDropdownRef}>
           <button
             onClick={handleClassesDropdownToggle}
             className="flex items-center text-white hover:text-[#EFD09E] transition-colors duration-200 text-base lg:text-lg font-medium group focus:outline-none"
@@ -158,7 +166,7 @@ const NavBar = ({ setActivePage }) => {
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-black bg-opacity-95 flex flex-col items-center py-6 space-y-6 animate-fade-in-down">
           {/* Classes Dropdown for Mobile */}
-          <div className="w-full flex flex-col items-center">
+          <div className="w-full flex flex-col items-center" ref={mobileDropdownRef}>
             <button
               onClick={handleClassesDropdownToggle}
               className="flex items-center text-white hover:text-[#FFDBBB] transition-colors duration-200 text-xl font-medium"
