@@ -51,6 +51,7 @@ const AboutUsPage = () => (
               instagramUrl="https://www.instagram.com/jayaruwan.official?igsh=M3VkYjdjb3p5bjU2"
               facebookUrl="#" // Placeholder link
               youtubeUrl="#" // Placeholder link
+              isReversed={false} // Default layout
             />
 
             {/* Person 2: SANDEV UBEYSEKARA */}
@@ -63,6 +64,7 @@ const AboutUsPage = () => (
               imageUrl={sandevFront}
               instagramUrl="https://www.instagram.com/sandev_ubeysekara?igsh=MXZndWdjcG9vNThqNg=="
               tiktokUrl="#" // Placeholder link
+              isReversed={true} // Reversed layout
             />
 
             {/* Person 3: HASINDU PRASANJAYA */}
@@ -74,6 +76,7 @@ const AboutUsPage = () => (
               ]}
               imageUrl={hasinduFront}
               instagramUrl="https://www.instagram.com/hasindugeekiyanage?igsh=MWkzcjVwN2xic3Zneg=="
+              isReversed={false} // Default layout
             />
 
             {/* Person 4: HIVIRU DILNETH */}
@@ -85,6 +88,7 @@ const AboutUsPage = () => (
               imageUrl={hiviruFront}
               instagramUrl="https://www.instagram.com/_hivzzz_?igsh=OWF5dDIwdHU4a201&utm_source=qr"
               facebookUrl="#" // Placeholder link
+              isReversed={true} // Reversed layout
             />
 
             {/* Person 5: TASINDU WIKRAMASINGHE */}
@@ -95,6 +99,7 @@ const AboutUsPage = () => (
               ]}
               imageUrl={tasinduFront}
               instagramUrl="https://www.instagram.com/taziii_2004?igsh=MW41YjVrbmJoNDV5Zw=="
+              isReversed={false} // Default layout
             />
 
             {/* Person 6: SHIVANKARA ARAVINDA */}
@@ -107,6 +112,7 @@ const AboutUsPage = () => (
               instagramUrl="https://www.instagram.com/shivankara_aravinda?igsh=MThjNDB6NHBldnpsbg%3D%3D&utm_source=qr"
               tiktokUrl="#" // Placeholder link
               youtubeUrl="#" // Placeholder link
+              isReversed={true} // Reversed layout
             />
           </div>
         </div>
