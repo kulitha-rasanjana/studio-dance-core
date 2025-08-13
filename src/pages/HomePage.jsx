@@ -1,7 +1,10 @@
 import React, { useRef, useState } from 'react';
 import heroVideoMp4 from '../assets/videos/home.mp4';
 import heroVideoWebm from '../assets/videos/Home.webm';
-import { logo, classesandevents, merch, headlogo, bg, lession, productions, moto, bggradiant } from '../utils/config';
+import {
+  logo, classesandevents, merch, headlogo, bg,
+  lession, productions, moto, bggradiant, augustIntake
+} from '../utils/config';
 import NavBar from '../components/NavBar';
 
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -88,12 +91,35 @@ const HomePage = ({ setActivePage }) => {
         </section>
 
         {/* Latest News */}
-        <div className="p-50 w-full bg-white flex flex-col items-center">
-          <div></div>
+        <div className="p-10 w-full bg-white flex flex-col items-center">
+          <div className="max-w-6xl w-full flex flex-col md:flex-row gap-8">
+            {/* Text Section */}
+            <div className="md:w-1/2 flex flex-col justify-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Latest News</h2>
+              <h3 className="text-xl md:text-2xl font-semibold mb-2">August Intake for New Students is now open!</h3>
+              <p className="text-gray-700 leading-relaxed mb-4 text-justify">
+                Join us for an exciting journey in dance. Enroll now to secure your spot and start your dance training with us!
+              </p>
+              <p className="text-gray-700 leading-relaxed text-justify">
+                Classes will be held every Saturday from 10:00 AM to 12:00 PM at Studio Dance Core, located within the Shelidian International School on Wava Road, Malabe.
+                A one-time admission fee of Rs. 1000 is required upon enrollment, followed by a monthly fee of Rs. 2000.
+              </p>
+              <a href="/news" className="mt-4 text-blue-600 font-semibold hover:underline">Read More →</a>
+            </div>
+
+            {/* Image Section */}
+            <div className="md:w-1/2 flex justify-center md:justify-end items-center">
+              <img
+                src={augustIntake}
+                alt="Dancers performing at a studio showcase"
+                className="w-full h-auto max-h-[400px] object-cover rounded-lg shadow-lg"
+              />
+            </div>
+          </div>
         </div>
 
         {/* Productions & Classes Section - Flex container for side-by-side layout */}
-        <div className="flex flex-col md:flex-row gap-4 w-screen mx-auto py-1">
+        <div className="flex flex-col md:flex-row gap-4 w-screen mx-auto py-4">
           {/* Productions Section */}
           <section
             id="productions-section"
@@ -151,7 +177,7 @@ const HomePage = ({ setActivePage }) => {
         </section>
 
         {/* Merch & Lessons Section - Flex container for side-by-side layout */}
-        <div className="flex flex-col md:flex-row gap-4 w-screen mx-auto py-1">
+        <div className="flex flex-col md:flex-row gap-4 w-screen mx-auto py-4">
           {/* Merch Section */}
           <section
             id="merch-section"
