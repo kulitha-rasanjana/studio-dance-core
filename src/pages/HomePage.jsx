@@ -18,6 +18,7 @@ const HomePage = ({ setActivePage }) => {
   const productionsRef = useRef(null);
   const merchRef = useRef(null);
   const aboutUsRef = useRef(null);
+  const latestNewsRef = useRef(null); // New ref for the latest news section
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -48,6 +49,11 @@ const HomePage = ({ setActivePage }) => {
     navigate('/lessons');
   };
 
+  // Function to scroll to the Latest News section
+  const scrollToLatestNews = () => {
+    latestNewsRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="flex flex-col items-center justify-center bg-transparent w-screen">
       {/* Sticky NavBar and Not Found Message */}
@@ -70,7 +76,6 @@ const HomePage = ({ setActivePage }) => {
           backgroundBlendMode: 'multiply',
         }}
       >
-
         {/* Hero Video Section */}
         <section className="relative w-screen h-[50vh] md:h-screen flex justify-center mt-0 pt-0">
           <video
@@ -82,16 +87,44 @@ const HomePage = ({ setActivePage }) => {
             title="Studio Dance Core"
             poster={logo}
           >
-            {/* WebM first for potentially smaller file size */}
             <source src={heroVideoWebm} type="video/webm" />
-            {/* MP4 as a fallback for broader compatibility */}
             <source src={heroVideoMp4} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+
+          {/* Scroll Down Button */}
+          <div className="absolute bottom-30 left-1/2 transform -translate-x-1/2 z-20 hidden md:flex flex-col items-center">
+            <button
+              onClick={scrollToLatestNews}
+              className="animate-bounce p-4 rounded-full bg-transparent border-2 border-white backdrop-blur-sm hover:bg-white hover:bg-opacity-20 transition-all duration-300"
+              aria-label="Scroll down to latest news"
+            >
+              <svg
+                className="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 13l-7 7-7-7"
+                ></path>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 7l-7 7-7-7"
+                ></path>
+              </svg>
+            </button>
+          </div>
         </section>
 
         {/* Latest News */}
-        <div className="p-10 w-full bg-white flex flex-col items-center">
+        <div ref={latestNewsRef} className="p-10 w-full bg-white flex flex-col items-center">
           <div className="max-w-6xl w-full flex flex-col md:flex-row gap-8">
             {/* Text Section */}
             <div className="md:w-1/2 flex flex-col justify-center">
@@ -106,7 +139,6 @@ const HomePage = ({ setActivePage }) => {
               </p>
               <a href="/news" className="mt-4 text-blue-600 font-semibold hover:underline">Read More →</a>
             </div>
-
             {/* Image Section */}
             <div className="md:w-1/2 flex justify-center md:justify-end items-center">
               <img
@@ -166,11 +198,9 @@ const HomePage = ({ setActivePage }) => {
             muted
             playsInline
             title="We brings are to next level"
-            poster={logo} // Poster image for video before it loads
+            poster={logo}
           >
-            {/* WebM first for potentially smaller file size */}
             <source src={moto} type="video/webm" />
-            {/* MP4 as a fallback for broader compatibility */}
             <source src={heroVideoMp4} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
@@ -278,7 +308,7 @@ const HomePage = ({ setActivePage }) => {
                 <div className="flex justify-center md:justify-start">
                   <button
                     className="px-6 py-3 md:px-10 md:py-4 bg-[#272727] text-white text-base md:text-lg font-semibold rounded-full shadow-lg flex items-center justify-center
-                          hover:bg-[#EFD09E] transform hover:scale-105 transition-all duration-300 hover:text-[#272727]"
+                                        hover:bg-[#EFD09E] transform hover:scale-105 transition-all duration-300 hover:text-[#272727]"
                     onClick={navigateToAboutUsPage}
                   >
                     See More
