@@ -130,59 +130,61 @@ const ClassesPage = forwardRef((props, ref) => { // 'ref' is the second argument
             <div className="flex flex-col md:flex-row gap-6 md:gap-8 w-full max-w-7xl mx-auto">
               {/* Left Column: Selection Controls + Class Schedule */}
               <div className="w-full md:w-1/2 flex flex-col space-y-4">
-                {/* Select Place */}
-                <select
-                  id="place-select"
-                  className="p-2 sm:p-3 rounded-md bg-white text-black focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-md text-sm sm:text-base"
-                  value={selectedPlace}
-                  onChange={(e) => setSelectedPlace(e.target.value)}
-                >
-                  <option value="">Select a Place</option>
-                  {locations.map((place) => (
-                    <option key={place} value={place}>{place}</option>
-                  ))}
-                </select>
+                <div className="max-w-sm mx-auto w-full md:max-w-none md:mx-0 flex flex-col space-y-4">
+                  {/* Select Place */}
+                  <select
+                    id="place-select"
+                    className="p-2 sm:p-3 rounded-md bg-white text-black focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-md text-sm sm:text-base"
+                    value={selectedPlace}
+                    onChange={(e) => setSelectedPlace(e.target.value)}
+                  >
+                    <option value="">Select a Place</option>
+                    {locations.map((place) => (
+                      <option key={place} value={place}>{place}</option>
+                    ))}
+                  </select>
 
-                {/* Select Day */}
-                <select
-                  id="day-select"
-                  className="p-2 sm:p-3 rounded-md bg-white text-black focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-md text-sm sm:text-base"
-                  value={selectedDay}
-                  onChange={(e) => setSelectedDay(e.target.value)}
-                >
-                  <option value="">Select a Day</option>
-                  {daysOfWeek.map((day) => (
-                    <option key={day} value={day}>{day}</option>
-                  ))}
-                </select>
+                  {/* Select Day */}
+                  <select
+                    id="day-select"
+                    className="p-2 sm:p-3 rounded-md bg-white text-black focus:ring-blue-500 focus:border-blue-500 transition duration-200 shadow-md text-sm sm:text-base"
+                    value={selectedDay}
+                    onChange={(e) => setSelectedDay(e.target.value)}
+                  >
+                    <option value="">Select a Day</option>
+                    {daysOfWeek.map((day) => (
+                      <option key={day} value={day}>{day}</option>
+                    ))}
+                  </select>
 
-                {/* Class Schedule Display */}
-                <div className="w-full bg-white rounded-xl p-3 sm:p-4 overflow-y-auto shadow-lg mt-4" style={{ maxHeight: '400px' }}>
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 text-black">
-                    {getHeaderText()}
-                  </h3>
-                  {filteredClasses.length > 0 ? (
-                    <ul className="space-y-3">
-                      {filteredClasses.map((cls, index) => (
-                        <li key={index} className="bg-gray-800 p-3 rounded-md flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-md">
-                          <div>
-                            <p className="text-base sm:text-lg font-medium text-white">{cls.name}</p>
-                            <p className="text-xs sm:text-sm text-gray-300">{cls.time}</p>
-                          </div>
-                          <div className="mt-2 sm:mt-0 text-right">
-                            <p className="text-sm text-gray-400">Instr: {cls.instructor}</p>
-                            {!(selectedPlace && selectedDay) && (
-                              <p className="text-xs text-gray-500 mt-1">{cls.day} at {cls.location}</p>
-                            )}
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="text-sm sm:text-base text-gray-400">
-                      {getEmptyMessage()}
-                    </p>
-                  )}
+                  {/* Class Schedule Display */}
+                  <div className="w-full bg-white rounded-xl p-3 sm:p-4 overflow-y-auto shadow-lg mt-4" style={{ maxHeight: '400px' }}>
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 text-black">
+                      {getHeaderText()}
+                    </h3>
+                    {filteredClasses.length > 0 ? (
+                      <ul className="space-y-3">
+                        {filteredClasses.map((cls, index) => (
+                          <li key={index} className="bg-gray-800 p-3 rounded-md flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-md">
+                            <div>
+                              <p className="text-base sm:text-lg font-medium text-white">{cls.name}</p>
+                              <p className="text-xs sm:text-sm text-gray-300">{cls.time}</p>
+                            </div>
+                            <div className="mt-2 sm:mt-0 text-right">
+                              <p className="text-sm text-gray-400">Instr: {cls.instructor}</p>
+                              {!(selectedPlace && selectedDay) && (
+                                <p className="text-xs text-gray-500 mt-1">{cls.day} at {cls.location}</p>
+                              )}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-sm sm:text-base text-gray-400">
+                        {getEmptyMessage()}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
 
