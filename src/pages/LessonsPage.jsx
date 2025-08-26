@@ -167,7 +167,7 @@ const LessonsPage = forwardRef((props, ref) => { // 'ref' is the second argument
             <div className="mt-8 text-center">
               <p className="text-sm sm:text-base text-gray-400">For more lessons, please sign up</p>
               <button
-                onClick={() => setShowLogin(true)}
+                //onClick={() => setShowLogin(true)}
                 className='mt-4 px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition duration-200'>
                 Sign Up Here
               </button>

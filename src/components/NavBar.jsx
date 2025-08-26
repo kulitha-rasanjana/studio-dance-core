@@ -152,7 +152,8 @@ const NavBar = ({ setActivePage }) => {
           Who We Are?
         </Link>
         <Link
-          to="/login"
+          //to="/login"
+          to = ""
           className="flex items-center px-4 py-2 rounded-full bg-white text-black hover:bg-[#EFD09E] hover:text-white transition-colors duration-200 text-base lg:text-lg font-medium group"
           aria-label="Go to Login Page"
           style={{ fontFamily: "'MetroPhotograph - Demo Version Regular', sans-serif", letterSpacing: '0.05em' }}
